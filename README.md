@@ -6,7 +6,7 @@ This tool simplifies the entire workflow and ensures fast, accurate results.
 
 ---
 
-## 🚀 Live Demo  
+## 🚀 Live Version  
 👉 https://valimarin.github.io/PerformanceBonus-Calculator/
 
 ---
