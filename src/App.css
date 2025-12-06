@@ -43,8 +43,9 @@ h2 {
 }
 
 .CalculationSection {
-  min-width: 800px;
-  height: 870px;
+  width: 30%;
+  min-width: 400px;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
