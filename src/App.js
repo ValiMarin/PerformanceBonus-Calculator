@@ -313,29 +313,27 @@ function App() {
             info
           </button>
 
-          <div className="finalResult">
-            <button className="buttonReset" onClick={reset}>
-              Reset
-            </button>
+          <button className="buttonReset" onClick={reset}>
+            Reset
+          </button>
 
-            <button className="buttonCalculate" onClick={calculate}>
-              Calculate
-            </button>
+          <button className="buttonCalculate" onClick={calculate}>
+            Calculate
+          </button>
 
-            <p className="totalResult">
-              {paletsResult} palets <br /> {cratesResult} crates
-            </p>
+          <p className="totalResult">
+            {paletsResult} palets <br /> {cratesResult} crates
+          </p>
 
-            <div className="lastProduct">
-              <label>Last Product</label>
+          <div className="lastProduct">
+            <label>Last Product</label>
 
-              <input
-                type="number"
-                placeholder="coefficient"
-                value={lastProductCoefficient}
-                onChange={(e) => setLastProduct(e.target.value)}
-              />
-            </div>
+            <input
+              type="number"
+              placeholder="coefficient"
+              value={lastProductCoefficient}
+              onChange={(e) => setLastProduct(e.target.value)}
+            />
           </div>
         </div>
       </header>
