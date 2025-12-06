@@ -127,7 +127,8 @@ button {
 }
 
 .finalResultPanel {
-  width: 180vh;
+  width: 85%;
+  height: 10%;
   display: flex;
   flex-direction: row;
   align-items: left;
