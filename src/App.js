@@ -164,7 +164,7 @@ function App() {
         {/*Calculation Panel*/}
         <div className="CalculationPanel">
           {/*Container for Time Calculator*/}
-          <div className="section">
+          <div className="CalculationSection">
             <h2>Time Calculator</h2>
 
             <div className="endAlign">
@@ -238,7 +238,7 @@ function App() {
           </div>
 
           {/*Container for expected time loss*/}
-          <div className="section">
+          <div className="CalculationSection">
             <h2>Expected Time Loss</h2>
 
             <div className="endAlign">
@@ -269,7 +269,7 @@ function App() {
           </div>
 
           {/*Container for completed production*/}
-          <div className="section">
+          <div className="CalculationSection">
             <h2>Completed Production</h2>
 
             <div className="divProduct">
