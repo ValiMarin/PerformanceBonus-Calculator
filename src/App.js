@@ -325,16 +325,15 @@ function App() {
             {paletsResult} palets <br /> {cratesResult} crates
           </p>
 
-          <div className="lastProduct">
-            <label>Last Product</label>
-
+          <label className="lastProduct">
+            Last Product
             <input
               type="number"
               placeholder="coefficient"
               value={lastProductCoefficient}
               onChange={(e) => setLastProduct(e.target.value)}
             />
-          </div>
+          </label>
         </div>
       </header>
 
