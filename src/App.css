@@ -19,11 +19,13 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .CalculationSection {
   width: 30%;
-  min-width: 400px;
+  min-width: 350px;
   height: 70vh;
   display: flex;
   flex-direction: column;
