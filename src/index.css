@@ -1,13 +1,71 @@
 body {
+  background-color: rgb(35, 56, 72);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+header {
+  font-weight: 900;
+  font-size: clamp(16px, 5vw, 80px);
+  color: rgb(171, 121, 26);
+  -webkit-text-stroke: 0.05em rgb(0, 0, 0);
+}
+
+p {
+  font-weight: 800;
+  font-size: clamp(16px, 2vw, 60px);
+  color: rgb(157, 41, 41);
+  -webkit-text-stroke: 0.05em rgb(0, 0, 0);
+}
+
+h1 {
+  font-weight: 900;
+  font-size: clamp(16px, 2.2vw, 60px);
+  color: rgb(26, 108, 171);
+  -webkit-text-stroke: 0.06em rgb(0, 0, 0);
+  text-align: center;
+}
+
+label {
+  font-weight: 900;
+  font-size: clamp(16px, 1.3vw, 60px);
+  color: #fffbb6;
+  -webkit-text-stroke: 0.07em rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  gap: 0.8vh;
+}
+
+input {
+  width: 10vh;
+  height: 2vh;
+  background-color: #63411b;
+  font-weight: 700;
+  -webkit-text-stroke: 0.03em rgb(0, 0, 0);
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.548);
+  font-size: inherit;
+  font-weight: 600;
+  padding: 5px;
+}
+
+select {
+  width: 10.7vh;
+  height: 2.3vh;
+  background-color: #63411b;
+  font-weight: 600;
+  color: #232323;
+  -webkit-text-stroke: 0.07em rgba(0, 0, 0, 0);
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border: clamp(3px, 0.2vw, 15px) solid rgb(0, 0, 0);
+  padding: 8px;
+  cursor: pointer;
 }

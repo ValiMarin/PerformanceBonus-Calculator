@@ -23,7 +23,7 @@ function App() {
   ];
 
   const [expectedTimeLossValues, setETLValues] = useState(
-    expectedTimeLossLabels.map(() => ({ amount: "", coefficient: "" }))
+    expectedTimeLossLabels.map(() => ({ amount: "", coefficient: "" })),
   );
 
   const updateETLValues = (index, inputs, value) => {
@@ -105,7 +105,7 @@ function App() {
     setTotalCP(totalCP);
 
     let finalResult = Math.ceil(
-      (1.35 * resultTime - totalCP - totalETL) / lastProductCoefficient
+      (1.35 * resultTime - totalCP - totalETL) / lastProductCoefficient,
     );
     setPaletsResult(Math.floor(finalResult / 32));
     setCratesResult(finalResult % 32);
@@ -125,7 +125,7 @@ function App() {
       expectedTimeLossLabels.map(() => ({
         amount: "",
         coefficient: "",
-      }))
+      })),
     );
     setTotalETL("");
 
@@ -158,184 +158,182 @@ function App() {
   };
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Performance Bonus - Calculator</h1>
+      <header> Performance Bonus - Calculator </header>
 
-        {/*Calculation Panel*/}
-        <div className="CalculationPanel">
-          {/*Container for Time Calculator*/}
-          <div className="CalculationSection">
-            <h2>Time Calculator</h2>
+      {/*Calculation Panel*/}
+      <div className="CalculationPanel">
+        {/*Container for Time Calculator*/}
+        <div className="CalculationSection">
+          <h1>Time Calculator</h1>
 
-            <div className="endAlign">
-              {timeCalculatorLabels.map((text, index) => (
-                <label key={index}>
-                  {text}
-                  {index === 0 && (
-                    <input
-                      type="number"
-                      placeholder="Total hours"
-                      value={workingHours}
-                      onChange={(e) => setWorkingHours(e.target.value)}
-                    />
-                  )}
-                  {index === 1 && (
-                    <select
-                      value={people}
-                      onChange={(e) => setPeople(e.target.value)}
-                    >
-                      <option value="" disabled>
-                        How many?
-                      </option>
-                      <option value={1}>1</option>
-                      <option value={2}>2</option>
-                      <option value={3}>3</option>
-                      <option value={4}>4</option>
-                    </select>
-                  )}
-                  {index === 2 && (
-                    <input
-                      type="number"
-                      placeholder="Total minutes"
-                      value={repairs}
-                      onChange={(e) => setRepairTime(e.target.value)}
-                    />
-                  )}
-                  {index === 3 && (
-                    <input
-                      type="checkbox"
-                      checked={open}
-                      onChange={(e) => checkOpen(e.target.checked)}
-                    />
-                  )}
-                  {index === 4 && (
-                    <input
-                      type="checkbox"
-                      checked={close}
-                      onChange={(e) => checkClose(e.target.checked)}
-                    />
-                  )}
-                  {index === 5 && (
-                    <input
-                      type="number"
-                      placeholder="nr"
-                      value={articles}
-                      onChange={(e) => setNrArticles(e.target.value)}
-                    />
-                  )}
-                  {index === 6 && (
-                    <input
-                      type="checkbox"
-                      checked={slicerCoverClean}
-                      onChange={(e) => checkSlicerCoverClean(e.target.checked)}
-                    />
-                  )}
-                </label>
-              ))}
-            </div>
-
-            <p className="result">Total time: {totalTime} min</p>
-          </div>
-
-          {/*Container for expected time loss*/}
-          <div className="CalculationSection">
-            <h2>Expected Time Loss</h2>
-
-            <div className="endAlign">
-              {expectedTimeLossLabels.map((text, index) => (
-                <label key={index}>
-                  {text}
+          <div className="endAlign">
+            {timeCalculatorLabels.map((text, index) => (
+              <label key={index}>
+                {text}
+                {index === 0 && (
+                  <input
+                    type="number"
+                    placeholder="Total hours"
+                    value={workingHours}
+                    onChange={(e) => setWorkingHours(e.target.value)}
+                  />
+                )}
+                {index === 1 && (
+                  <select
+                    value={people}
+                    onChange={(e) => setPeople(e.target.value)}
+                  >
+                    <option value="" disabled>
+                      How many?
+                    </option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                  </select>
+                )}
+                {index === 2 && (
+                  <input
+                    type="number"
+                    placeholder="Total minutes"
+                    value={repairs}
+                    onChange={(e) => setRepairTime(e.target.value)}
+                  />
+                )}
+                {index === 3 && (
+                  <input
+                    type="checkbox"
+                    checked={open}
+                    onChange={(e) => checkOpen(e.target.checked)}
+                  />
+                )}
+                {index === 4 && (
+                  <input
+                    type="checkbox"
+                    checked={close}
+                    onChange={(e) => checkClose(e.target.checked)}
+                  />
+                )}
+                {index === 5 && (
                   <input
                     type="number"
                     placeholder="nr"
-                    value={expectedTimeLossValues[index].amount}
-                    onChange={(e) =>
-                      updateETLValues(index, "amount", e.target.value)
-                    }
+                    value={articles}
+                    onChange={(e) => setNrArticles(e.target.value)}
                   />
+                )}
+                {index === 6 && (
                   <input
-                    type="number"
-                    placeholder="Line-coefficient"
-                    value={expectedTimeLossValues[index].coefficient}
-                    onChange={(e) =>
-                      updateETLValues(index, "coefficient", e.target.value)
-                    }
+                    type="checkbox"
+                    checked={slicerCoverClean}
+                    onChange={(e) => checkSlicerCoverClean(e.target.checked)}
                   />
-                </label>
-              ))}
-            </div>
-
-            <p className="result">Total:{totalETL}</p>
+                )}
+              </label>
+            ))}
           </div>
 
-          {/*Container for completed production*/}
-          <div className="CalculationSection">
-            <h2>Completed Production</h2>
+          <p>Total time: {totalTime} min</p>
+        </div>
 
-            <div className="divProduct">
-              {products.map((inputs, index) => (
-                <div className="divProductRow" key={index}>
-                  <label>{index + 1}</label>
-                  <input
-                    type="number"
-                    placeholder="Total crates"
-                    value={inputs.crates}
-                    onChange={(e) => newValues(index, "crates", e.target.value)}
-                  />
-                  <input
-                    type="number"
-                    placeholder="Prod-coefficient"
-                    value={inputs.coefficient}
-                    onChange={(e) =>
-                      newValues(index, "coefficient", e.target.value)
-                    }
-                  />
-                </div>
-              ))}
-            </div>
+        {/*Container for expected time loss*/}
+        <div className="CalculationSection">
+          <h1>Expected Time Loss</h1>
 
-            <div className="divProductionBtns">
-              <button className="productionBtns" onClick={addProduct}>
-                +
-              </button>
-              <button className="productionBtns" onClick={deleteProduct}>
-                -
-              </button>
-            </div>
-
-            <p className="result">Total:{totalCP}</p>
+          <div className="endAlign">
+            {expectedTimeLossLabels.map((text, index) => (
+              <label key={index}>
+                {text}
+                <input
+                  type="number"
+                  placeholder="nr"
+                  value={expectedTimeLossValues[index].amount}
+                  onChange={(e) =>
+                    updateETLValues(index, "amount", e.target.value)
+                  }
+                />
+                <input
+                  type="number"
+                  placeholder="Line-coefficient"
+                  value={expectedTimeLossValues[index].coefficient}
+                  onChange={(e) =>
+                    updateETLValues(index, "coefficient", e.target.value)
+                  }
+                />
+              </label>
+            ))}
           </div>
+
+          <p>Total: ...{totalETL}</p>
         </div>
 
-        {/*Container for buttons & final result*/}
-        <div className="finalResultPanel">
-          <button className="infoBtn" onClick={activateInfoPanel}>
-            info
-          </button>
+        {/*Container for completed production*/}
+        <div className="CalculationSection">
+          <h1>Completed Production</h1>
 
-          <button className="buttonReset" onClick={reset}>
-            Reset
-          </button>
+          <div className="divProduct">
+            {products.map((inputs, index) => (
+              <div className="divProductRow" key={index}>
+                <label>{index + 1}.</label>
+                <input
+                  type="number"
+                  placeholder="Total crates"
+                  value={inputs.crates}
+                  onChange={(e) => newValues(index, "crates", e.target.value)}
+                />
+                <input
+                  type="number"
+                  placeholder="Prod-coefficient"
+                  value={inputs.coefficient}
+                  onChange={(e) =>
+                    newValues(index, "coefficient", e.target.value)
+                  }
+                />
+              </div>
+            ))}
+          </div>
 
-          <button className="buttonCalculate" onClick={calculate}>
-            Calculate
-          </button>
+          <div className="divProductionBtns">
+            <button className="productionBtns" onClick={addProduct}>
+              +
+            </button>
+            <button className="productionBtns" onClick={deleteProduct}>
+              -
+            </button>
+          </div>
 
-          <p className="totalResult">
-            {paletsResult} palets <br /> {cratesResult} crates
-          </p>
-
-          <label className="lastProduct">
-            Last Product
-            <input
-              type="number"
-              placeholder="coefficient"
-              value={lastProductCoefficient}
-              onChange={(e) => setLastProduct(e.target.value)}
-            />
-          </label>
+          <p>Total: ...{totalCP}</p>
         </div>
-      </header>
+      </div>
+
+      {/*Container for buttons & final result*/}
+      <div className="finalResultPanel">
+        <button className="infoBtn" onClick={activateInfoPanel}>
+          info
+        </button>
+
+        <button className="buttonReset" onClick={reset}>
+          Reset
+        </button>
+
+        <button className="buttonCalculate" onClick={calculate}>
+          Calculate
+        </button>
+
+        <p className="totalResult">
+          {paletsResult} palets <br /> {cratesResult} crates
+        </p>
+
+        <label className="lastProduct">
+          Last Product
+          <input
+            type="number"
+            placeholder="coefficient"
+            value={lastProductCoefficient}
+            onChange={(e) => setLastProduct(e.target.value)}
+          />
+        </label>
+      </div>
 
       {infoPanel && (
         <div className="infoPanel">

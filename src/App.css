@@ -3,43 +3,22 @@
 }
 
 .App {
-  text-align: center;
-  background-color: #282c34;
-  font-family: "Inter";
-  padding-bottom: 10px;
-  min-height: 100vh;
-}
-
-.App-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  font-size: calc(10px + 2vmin);
-  gap: 15px;
-}
-
-h1 {
-  font-size: calc(10px + 4vmin);
-  color: rgb(195, 115, 44);
-  font-weight: 900;
-  text-align: center;
-}
-
-h2 {
-  font-size: calc(2px + 4vmin);
-  color: rgb(55, 107, 185);
-  font-weight: 700;
+  font-family: "Inter";
+  padding: 15px;
+  gap: 20px;
 }
 
 .CalculationPanel {
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
 }
 
 .CalculationSection {
@@ -49,60 +28,21 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 20px;
-  background-color: #424242;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #453b3d;
   border: 10px solid black;
 }
 
-.result {
-  color: #ac2727;
-  font-weight: 650;
-  margin-top: auto;
-}
-
 .endAlign {
+  height: 80%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: flex-end;
-  gap: 2.3vh;
-}
-
-label {
-  font-weight: 500;
-  font-size: calc(1vh + 1.2vmin);
-  color: #fffbb6;
-  display: flex;
-  align-items: center;
-  gap: 0.8vh;
-}
-
-input {
-  width: 10vh;
-  height: 2vh;
-  background-color: #63411b;
-}
-
-input::placeholder {
-  color: rgb(0, 0, 0);
-  opacity: 0.5;
-  font-weight: 600;
-  font-size: inherit;
-}
-
-select {
-  width: 10.7vh;
-  height: 2.3vh;
-  background-color: #63411b;
-  font-weight: 600;
-  color: #232323;
-}
-
-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
+  padding: 10px;
 }
 
 .buttonCalculate {
@@ -127,17 +67,18 @@ button {
   align-items: center;
   justify-content: center;
   gap: 3%;
-  background-color: #424242;
+  background-color: #453b3d;
   border: 10px solid black;
+  padding: 10px;
+  flex-wrap: wrap;
 }
 
 .totalResult {
-  width: 17vh;
-  color: #b60000;
   font-weight: 650;
-  font-size: calc(10px + 2vmin);
+  font-size: clamp(16px, 1.3vw, 60px);
   line-height: 1.6;
   background-color: #2b2b2b;
+  padding: 10px;
 }
 
 .productionBtns {
@@ -148,9 +89,10 @@ button {
 }
 
 .divProductionBtns {
-  width: 45vh;
+  width: 75%;
+  height: 50%;
   display: flex;
-  gap: 0.7vh;
+  gap: 2%;
 }
 
 .divProductRow {
