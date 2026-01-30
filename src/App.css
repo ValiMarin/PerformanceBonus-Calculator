@@ -150,6 +150,10 @@
   align-items: center;
   justify-content: flex-start;
   background-color: #253d40;
+  border: 10px solid black;
+  overflow: hidden;
+  overflow-y: auto;
+  padding: 20px;
 }
 
 .infoText {
@@ -177,4 +181,6 @@
   justify-content: flex-start;
   background-color: #253d40;
   gap: 8vh;
+  padding: 20px;
+  border: 10px solid black;
 }
