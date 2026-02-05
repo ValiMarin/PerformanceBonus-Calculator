@@ -2,10 +2,21 @@ import { useState } from "react";
 import "../styles/App.css";
 
 function App() {
+  const timeCalculatorLabels = [
+    "Working hours:",
+    "People:",
+    "Repair time:",
+    "Open line?",
+    "Close line?",
+    "Article change:",
+    "Slicer Cover Clean?",
+  ];
+
   const [workingHours, setWorkingHours] = useState("");
   const [people, setPeople] = useState("");
   const [repairs, setRepairTime] = useState("");
   const [totalTime, setTotalTime] = useState(0);
+  const [totalETL, setTotalETL] = useState("...");
   const [open, checkOpen] = useState(false);
   const [close, checkClose] = useState(false);
   const [articles, setNrArticles] = useState("");
@@ -26,26 +37,14 @@ function App() {
     expectedTimeLossLabels.map(() => ({ amount: "", coefficient: "" })),
   );
 
-  const updateETLValues = (index, inputs, value) => {
+  const updateETLValues = (index, input, value) => {
     const update = [...expectedTimeLossValues];
-    update[index][inputs] = value;
+    update[index][input] = value;
     setETLValues(update);
   };
 
-  const [totalETL, setTotalETL] = useState("");
-
-  const timeCalculatorLabels = [
-    "Working hours:",
-    "People:",
-    "Repair time:",
-    "Open line?",
-    "Close line?",
-    "Article change:",
-    "Slicer Cover Clean?",
-  ];
-
   const [products, setNewProduct] = useState([]);
-  const [totalCP, setTotalCP] = useState("");
+  const [totalCP, setTotalCP] = useState("...");
 
   const addProduct = () => {
     setNewProduct((lastState) => {
@@ -68,6 +67,7 @@ function App() {
 
   const [lastProductCoefficient, setLastProduct] = useState("");
 
+  const [percent, setPercent] = useState("...");
   const [cratesResult, setCratesResult] = useState("...");
   const [paletsResult, setPaletsResult] = useState("...");
 
@@ -77,15 +77,33 @@ function App() {
       return;
     }
 
-    let quarters = 0;
-    if (open) quarters += 15;
-    if (close) quarters += 15;
-    if (articles > 0) quarters += 15 * articles;
-    if (slicerCoverClean) quarters += 5;
-    let workingMinutes = workingHours * 60;
-    const resultTime = people * (workingMinutes - repairs - quarters);
+    const totalTime = timeCalculator();
+    const totalETL = ETLCalculator();
+    const totalCP = CPCalculator();
+
+    setPercent(Math.floor(((totalCP + totalETL) / totalTime) * 100));
+
+    let finalResult = Math.ceil(
+      (1.35 * totalTime - totalCP - totalETL) / lastProductCoefficient,
+    );
+    setPaletsResult(Math.floor(finalResult / 32));
+    setCratesResult(finalResult % 32);
+  }
+
+  function timeCalculator() {
+    let justifiedTime = 0;
+    if (open) justifiedTime += 15;
+    if (close) justifiedTime += 15;
+    if (articles > 0) justifiedTime += 15 * articles;
+    if (slicerCoverClean) justifiedTime += 5;
+    const workingMinutes = workingHours * 60;
+    const resultTime = people * (workingMinutes - repairs - justifiedTime);
     setTotalTime(resultTime);
 
+    return resultTime;
+  }
+
+  function ETLCalculator() {
     let totalETL = 0;
     expectedTimeLossValues.forEach((i) => {
       if (!isNaN(i.amount) && !isNaN(i.coefficient)) {
@@ -94,21 +112,19 @@ function App() {
     });
     totalETL *= people;
     totalETL += (totalETL * 35) / 100;
-    setTotalETL(totalETL);
+    setTotalETL(Math.floor(totalETL));
+    return totalETL;
+  }
 
+  function CPCalculator() {
     let totalCP = 0;
     products.forEach((i) => {
       if (!isNaN(i.crates) && !isNaN(i.coefficient)) {
         totalCP += i.crates * i.coefficient;
       }
     });
-    setTotalCP(totalCP);
-
-    let finalResult = Math.ceil(
-      (1.35 * resultTime - totalCP - totalETL) / lastProductCoefficient,
-    );
-    setPaletsResult(Math.floor(finalResult / 32));
-    setCratesResult(finalResult % 32);
+    setTotalCP(Math.floor(totalCP));
+    return totalCP;
   }
 
   function reset() {
@@ -127,14 +143,15 @@ function App() {
         coefficient: "",
       })),
     );
-    setTotalETL("");
+    setTotalETL("...");
 
     setNewProduct([]);
-    setTotalCP("");
+    setTotalCP("...");
 
     setLastProduct("");
     setCratesResult("...");
     setPaletsResult("...");
+    setPercent("...");
   }
 
   const [infoPanel, setInfoPanelVisibility] = useState(false);
@@ -264,7 +281,7 @@ function App() {
             ))}
           </div>
 
-          <p>Total: ...{totalETL}</p>
+          <p>Total: {totalETL}</p>
         </div>
 
         {/*Container for completed production*/}
@@ -272,19 +289,19 @@ function App() {
           <h1>Completed Production</h1>
 
           <div className="divProduct">
-            {products.map((inputs, index) => (
+            {products.map((input, index) => (
               <div className="divProductRow" key={index}>
                 <label>{index + 1}.</label>
                 <input
                   type="number"
                   placeholder="Total crates"
-                  value={inputs.crates}
+                  value={input.crates}
                   onChange={(e) => newValues(index, "crates", e.target.value)}
                 />
                 <input
                   type="number"
                   placeholder="Prod-coefficient"
-                  value={inputs.coefficient}
+                  value={input.coefficient}
                   onChange={(e) =>
                     newValues(index, "coefficient", e.target.value)
                   }
@@ -302,11 +319,11 @@ function App() {
             </button>
           </div>
 
-          <p>Total: ...{totalCP}</p>
+          <p>Total: {totalCP}</p>
         </div>
       </div>
 
-      {/*Container for buttons & final result*/}
+      {/*Container for buttons & final results*/}
       <div className="finalResultPanel">
         <button className="infoBtn" onClick={activateInfoPanel}>
           info
@@ -315,6 +332,8 @@ function App() {
         <button className="buttonReset" onClick={reset}>
           Reset
         </button>
+
+        <p className="totalResult">{percent} %</p>
 
         <button className="buttonCalculate" onClick={calculate}>
           Calculate
@@ -335,6 +354,7 @@ function App() {
         </label>
       </div>
 
+      {/*info*/}
       {infoPanel && (
         <div className="infoPanel">
           <div className="infoTextHolder">
@@ -384,12 +404,13 @@ function App() {
         </div>
       )}
 
+      {/*mandatory*/}
       {mandatoryFields && (
         <div className="infoPanel">
           <div className="mandatoryFieldsPanel">
             <h1>
-              The following fields are mandatory: Working Hours, People, and
-              Last Product.
+              Please complete the following required fields: Working Hours,
+              People, and Last Product.
             </h1>
             <button
               className="infoOkBtn"

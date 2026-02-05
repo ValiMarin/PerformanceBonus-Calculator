@@ -76,7 +76,7 @@
 }
 
 .totalResult {
-  font-weight: 650;
+  font-weight: 800;
   font-size: clamp(16px, 1.3vw, 60px);
   line-height: 1.6;
   background-color: #2b2b2b;
