@@ -1,19 +1,15 @@
+import { useState } from "react";
+import { useEffect } from "react";
+
 function TimeCalculator({
+  calculateTrigger,
+  resetTrigger,
   workingHours,
   setWorkingHours,
-  repairs,
-  setRepairTime,
-  open,
-  checkOpen,
-  close,
-  checkClose,
-  articles,
-  setNrArticles,
-  slicerCoverClean,
-  checkSlicerCoverClean,
   people,
   setPeople,
   totalTime,
+  setTotalTime,
 }) {
   const timeCalculatorLabels = [
     "Working hours:",
@@ -24,6 +20,45 @@ function TimeCalculator({
     "Article change:",
     "Slicer Cover Clean?",
   ];
+
+  const [repairs, setRepairTime] = useState("");
+  const [open, checkOpen] = useState(false);
+  const [close, checkClose] = useState(false);
+  const [articles, setNrArticles] = useState("");
+  const [slicerCoverClean, checkSlicerCoverClean] = useState("");
+
+  function calculateTime() {
+    let justifiedTime = 0;
+    if (open) justifiedTime += 15;
+    if (close) justifiedTime += 15;
+    if (articles > 0) justifiedTime += 15 * articles;
+    if (slicerCoverClean) justifiedTime += 5;
+
+    const workingMinutes = workingHours * 60;
+    const resultTime = people * (workingMinutes - repairs - justifiedTime);
+
+    setTotalTime(resultTime);
+  }
+
+  function reset() {
+    setRepairTime("");
+    checkOpen(false);
+    checkClose(false);
+    setNrArticles("");
+    checkSlicerCoverClean(false);
+  }
+
+  useEffect(() => {
+    if (calculateTrigger) {
+      calculateTime();
+    }
+  }, [calculateTrigger]);
+
+  useEffect(() => {
+    if (resetTrigger) {
+      reset();
+    }
+  }, [resetTrigger]);
 
   return (
     <div className="CalculationSection">

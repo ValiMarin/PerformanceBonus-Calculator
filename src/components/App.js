@@ -8,52 +8,18 @@ import CompletedProduction from "./CompletedProduction.jsx";
 import FinalResultPanel from "./FinalResultPanel.jsx";
 
 function App() {
+  const [calculateTrigger, setCalculateTrigger] = useState(false);
+  const [resetTrigger, setResetTrigger] = useState(false);
+  const [finalResultTrigger, setFinalResultTrigger] = useState(false);
+
   const [workingHours, setWorkingHours] = useState("");
   const [people, setPeople] = useState("");
-  const [repairs, setRepairTime] = useState("");
-  const [open, checkOpen] = useState(false);
-  const [close, checkClose] = useState(false);
-  const [articles, setNrArticles] = useState("");
-  const [slicerCoverClean, checkSlicerCoverClean] = useState("");
+
   const [totalTime, setTotalTime] = useState(0);
-
   const [totalETL, setTotalETL] = useState("...");
-  const [expectedTimeLossValues, setETLValues] = useState(
-    Array.from({ length: 8 }, () => ({ amount: "", coefficient: "" })),
-  );
-
-  const updateETLValues = (index, input, value) => {
-    const update = [...expectedTimeLossValues];
-    update[index][input] = value;
-    setETLValues(update);
-  };
-
   const [totalCP, setTotalCP] = useState("...");
-  const [products, setNewProduct] = useState([]);
-
-  const addProduct = () => {
-    setNewProduct((lastState) => {
-      if (lastState.length >= 9) {
-        return lastState;
-      }
-      return [...products, { label: "", crates: "", coefficient: "" }];
-    });
-  };
-
-  const deleteProduct = () => {
-    setNewProduct((lastState) => lastState.slice(0, -1));
-  };
-
-  const newValues = (index, inputs, value) => {
-    const newProduct = [...products];
-    newProduct[index][inputs] = value;
-    setNewProduct(newProduct);
-  };
 
   const [lastProductCoefficient, setLastProduct] = useState("");
-  const [percent, setPercent] = useState("...");
-  const [cratesResult, setCratesResult] = useState("...");
-  const [paletsResult, setPaletsResult] = useState("...");
 
   function calculate() {
     if (workingHours === "" || lastProductCoefficient === "" || people === "") {
@@ -61,88 +27,31 @@ function App() {
       return;
     }
 
-    const totalTimeCalculation = calculateTotalTime();
-    const totalETLCalculation = ETLCalculator();
-    const totalCPCalculation = CPCalculator();
-    const percentCalculation = Math.floor(
-      ((totalCPCalculation + totalETLCalculation) / totalTimeCalculation) * 100,
-    );
+    if (calculateTrigger) return;
+    else setCalculateTrigger(true);
 
-    const cratesNeeded = Math.ceil(
-      (1.35 * totalTimeCalculation - totalETLCalculation - totalCPCalculation) /
-        lastProductCoefficient,
-    );
+    setFinalResultTrigger(true);
 
-    const paletsCalculation = Math.floor(cratesNeeded / 32);
-    const cratesCalculation = cratesNeeded % 32;
-
-    setTotalTime(totalTimeCalculation);
-    setTotalETL(totalETLCalculation);
-    setTotalCP(totalCPCalculation);
-    setPercent(percentCalculation);
-    setPaletsResult(paletsCalculation);
-    setCratesResult(cratesCalculation);
-  }
-
-  function calculateTotalTime() {
-    let justifiedTime = 0;
-    if (open) justifiedTime += 15;
-    if (close) justifiedTime += 15;
-    if (articles > 0) justifiedTime += 15 * articles;
-    if (slicerCoverClean) justifiedTime += 5;
-
-    const workingMinutes = workingHours * 60;
-    const resultTime = people * (workingMinutes - repairs - justifiedTime);
-
-    return resultTime;
-  }
-
-  function ETLCalculator() {
-    let totalETL = 0;
-    expectedTimeLossValues.forEach((i) => {
-      if (!isNaN(i.amount) && !isNaN(i.coefficient)) {
-        totalETL += i.amount * i.coefficient;
-      }
-    });
-    totalETL *= people;
-    totalETL += (totalETL * 35) / 100;
-
-    return Math.floor(totalETL);
-  }
-
-  function CPCalculator() {
-    let totalCP = 0;
-    products.forEach((i) => {
-      if (!isNaN(i.crates) && !isNaN(i.coefficient)) {
-        totalCP += i.crates * i.coefficient;
-      }
-    });
-
-    return Math.floor(totalCP);
+    setTimeout(() => {
+      setCalculateTrigger(false);
+      setFinalResultTrigger(false);
+    }, 100);
   }
 
   function reset() {
-    setTotalTime(0);
     setPeople("");
-    setRepairTime("");
-    checkOpen(false);
-    checkClose(false);
     setWorkingHours("");
-    setNrArticles("");
-    checkSlicerCoverClean(false);
 
-    setETLValues(
-      Array.from({ length: 8 }, () => ({ amount: "", coefficient: "" })),
-    );
+    setResetTrigger(true);
+
+    setTimeout(() => {
+      setResetTrigger(false);
+    }, 100);
+
+    setTotalTime(0);
     setTotalETL("...");
-
-    setNewProduct([]);
     setTotalCP("...");
-
     setLastProduct("");
-    setCratesResult("...");
-    setPaletsResult("...");
-    setPercent("...");
   }
 
   const [infoPanel, setInfoPanelVisibility] = useState(false);
@@ -170,47 +79,43 @@ function App() {
 
       <div className="CalculationPanel">
         <TimeCalculator
+          calculateTrigger={calculateTrigger}
+          resetTrigger={resetTrigger}
           workingHours={workingHours}
           setWorkingHours={setWorkingHours}
           people={people}
           setPeople={setPeople}
-          repairs={repairs}
-          setRepairTime={setRepairTime}
-          open={open}
-          checkOpen={checkOpen}
-          close={close}
-          checkClose={checkClose}
-          articles={articles}
-          setNrArticles={setNrArticles}
-          slicerCoverClean={slicerCoverClean}
-          checkSlicerCoverClean={checkSlicerCoverClean}
           totalTime={totalTime}
+          setTotalTime={setTotalTime}
         />
 
         <ExpectedTimeLoss
-          expectedTimeLossValues={expectedTimeLossValues}
-          updateETLValues={updateETLValues}
+          calculateTrigger={calculateTrigger}
+          resetTrigger={resetTrigger}
           totalETL={totalETL}
+          setTotalETL={setTotalETL}
+          people={people}
         />
 
         <CompletedProduction
-          products={products}
-          newValues={newValues}
-          addProduct={addProduct}
-          deleteProduct={deleteProduct}
+          calculateTrigger={calculateTrigger}
+          resetTrigger={resetTrigger}
           totalCP={totalCP}
+          setTotalCP={setTotalCP}
         />
       </div>
 
       <FinalResultPanel
+        finalResultTrigger={finalResultTrigger}
+        resetTrigger={resetTrigger}
         activateInfoPanel={activateInfoPanel}
         reset={reset}
         calculate={calculate}
-        paletsResult={paletsResult}
-        cratesResult={cratesResult}
-        setLastProduct={setLastProduct}
+        totalTime={totalTime}
+        totalETL={totalETL}
+        totalCP={totalCP}
         lastProductCoefficient={lastProductCoefficient}
-        percent={percent}
+        setLastProduct={setLastProduct}
       />
 
       {infoPanel && <Info onClose={deactivateInfoPanel} />}

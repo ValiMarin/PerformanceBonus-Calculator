@@ -1,7 +1,12 @@
+import { useState } from "react";
+import { useEffect } from "react";
+
 function ExpectedTimeLoss({
-  expectedTimeLossValues,
-  updateETLValues,
+  calculateTrigger,
+  resetTrigger,
   totalETL,
+  setTotalETL,
+  people,
 }) {
   const expectedTimeLossLabels = [
     "Slicer Change:",
@@ -13,6 +18,47 @@ function ExpectedTimeLoss({
     "Allergen Clean:",
     "Line Reconfiguration:",
   ];
+
+  const [expectedTimeLossValues, setETLValues] = useState(
+    expectedTimeLossLabels.map(() => ({ amount: "", coefficient: "" })),
+  );
+
+  const updateETLValues = (index, input, value) => {
+    const update = [...expectedTimeLossValues];
+    update[index][input] = value;
+    setETLValues(update);
+  };
+
+  function calculateETL() {
+    let totalETL = 0;
+    expectedTimeLossValues.forEach((i) => {
+      if (!isNaN(i.amount) && !isNaN(i.coefficient)) {
+        totalETL += i.amount * i.coefficient;
+      }
+    });
+    totalETL *= people;
+    totalETL += (totalETL * 35) / 100;
+
+    setTotalETL(Math.floor(totalETL));
+  }
+
+  function reset() {
+    setETLValues(
+      expectedTimeLossLabels.map(() => ({ amount: "", coefficient: "" })),
+    );
+  }
+
+  useEffect(() => {
+    if (calculateTrigger) {
+      calculateETL();
+    }
+  }, [calculateTrigger]);
+
+  useEffect(() => {
+    if (resetTrigger) {
+      reset();
+    }
+  }, [resetTrigger]);
 
   return (
     <div className="CalculationSection">
