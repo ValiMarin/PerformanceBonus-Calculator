@@ -1,8 +1,6 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function FinalResultPanel({
-  finalResultTrigger,
   resetTrigger,
   activateInfoPanel,
   reset,
@@ -41,16 +39,9 @@ function FinalResultPanel({
   }
 
   useEffect(() => {
-    if (finalResultTrigger) {
-      calculateFinalResult();
-    }
-  }, [
-    finalResultTrigger,
-    totalCP,
-    totalETL,
-    totalTime,
-    lastProductCoefficient,
-  ]);
+    if (!totalTime) return;
+    calculateFinalResult();
+  }, [totalTime, totalETL, totalCP]);
 
   useEffect(() => {
     if (resetTrigger) {

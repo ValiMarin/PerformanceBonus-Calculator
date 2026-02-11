@@ -10,16 +10,14 @@ import FinalResultPanel from "./FinalResultPanel.jsx";
 function App() {
   const [calculateTrigger, setCalculateTrigger] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(false);
-  const [finalResultTrigger, setFinalResultTrigger] = useState(false);
 
   const [workingHours, setWorkingHours] = useState("");
   const [people, setPeople] = useState("");
+  const [lastProductCoefficient, setLastProduct] = useState("");
 
   const [totalTime, setTotalTime] = useState(0);
   const [totalETL, setTotalETL] = useState("...");
   const [totalCP, setTotalCP] = useState("...");
-
-  const [lastProductCoefficient, setLastProduct] = useState("");
 
   function calculate() {
     if (workingHours === "" || lastProductCoefficient === "" || people === "") {
@@ -30,19 +28,17 @@ function App() {
     if (calculateTrigger) return;
     else setCalculateTrigger(true);
 
-    setFinalResultTrigger(true);
-
     setTimeout(() => {
       setCalculateTrigger(false);
-      setFinalResultTrigger(false);
     }, 100);
   }
 
   function reset() {
+    if (resetTrigger) return;
+    else setResetTrigger(true);
+
     setPeople("");
     setWorkingHours("");
-
-    setResetTrigger(true);
 
     setTimeout(() => {
       setResetTrigger(false);
@@ -106,7 +102,6 @@ function App() {
       </div>
 
       <FinalResultPanel
-        finalResultTrigger={finalResultTrigger}
         resetTrigger={resetTrigger}
         activateInfoPanel={activateInfoPanel}
         reset={reset}
