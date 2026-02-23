@@ -1,12 +1,12 @@
 function MandatoryFields({ onClose }) {
   return (
-    <div className="infoPanel">
-      <div className="mandatoryFieldsPanel">
+    <div className="coverPanel">
+      <div className="actionPanel">
         <h1>
-          Please complete the following required fields: Working Hours, People,
-          and Last Product.
+          Bitte füllen Sie die folgenden Pflichtfelder aus: Von, Bis, Leute und
+          Aktuelle Sorte.
         </h1>
-        <button className="infoOkBtn" onClick={onClose}>
+        <button className="panelBtn" onClick={onClose}>
           OK
         </button>
       </div>

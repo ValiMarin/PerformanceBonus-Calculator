@@ -11,7 +11,8 @@ function App() {
   const [calculateTrigger, setCalculateTrigger] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(false);
 
-  const [workingHours, setWorkingHours] = useState("");
+  const [von, setVon] = useState("");
+  const [bis, setBis] = useState("");
   const [people, setPeople] = useState("");
   const [lastProductCoefficient, setLastProduct] = useState("");
 
@@ -20,7 +21,7 @@ function App() {
   const [totalCP, setTotalCP] = useState("...");
 
   function calculate() {
-    if (workingHours === "" || lastProductCoefficient === "" || people === "") {
+    if (!von || !bis || !lastProductCoefficient || !people) {
       activateMandatoryFieldsPanel();
       return;
     }
@@ -38,7 +39,8 @@ function App() {
     else setResetTrigger(true);
 
     setPeople("");
-    setWorkingHours("");
+    setVon("");
+    setBis("");
 
     setTimeout(() => {
       setResetTrigger(false);
@@ -71,14 +73,16 @@ function App() {
   };
   return (
     <div className="App">
-      <header> Performance Bonus - Calculator </header>
+      <header> Prämienrechner </header>
 
       <div className="CalculationPanel">
         <TimeCalculator
           calculateTrigger={calculateTrigger}
           resetTrigger={resetTrigger}
-          workingHours={workingHours}
-          setWorkingHours={setWorkingHours}
+          von={von}
+          setVon={setVon}
+          bis={bis}
+          setBis={setBis}
           people={people}
           setPeople={setPeople}
           totalTime={totalTime}
@@ -92,14 +96,13 @@ function App() {
           setTotalETL={setTotalETL}
           people={people}
         />
-
-        <CompletedProduction
-          calculateTrigger={calculateTrigger}
-          resetTrigger={resetTrigger}
-          totalCP={totalCP}
-          setTotalCP={setTotalCP}
-        />
       </div>
+      <CompletedProduction
+        calculateTrigger={calculateTrigger}
+        resetTrigger={resetTrigger}
+        totalCP={totalCP}
+        setTotalCP={setTotalCP}
+      />
 
       <FinalResultPanel
         resetTrigger={resetTrigger}

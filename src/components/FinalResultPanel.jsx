@@ -24,7 +24,11 @@ function FinalResultPanel({
       (1.35 * totalTime - totalETL - totalCP) / lastProductCoefficient,
     );
 
-    const paletsCalculation = Math.floor(cratesNeeded / 32);
+    let paletsCalculation;
+
+    if (cratesNeeded > 0) paletsCalculation = Math.floor(cratesNeeded / 32);
+    else paletsCalculation = Math.ceil(cratesNeeded / 32);
+
     const cratesCalculation = cratesNeeded % 32;
 
     setPercent(percentCalculation);
@@ -39,9 +43,9 @@ function FinalResultPanel({
   }
 
   useEffect(() => {
-    if (!totalTime) return;
+    if (!totalTime || !lastProductCoefficient) return;
     calculateFinalResult();
-  }, [totalTime, totalETL, totalCP]);
+  }, [totalTime, totalETL, totalCP, lastProductCoefficient]);
 
   useEffect(() => {
     if (resetTrigger) {
@@ -52,30 +56,34 @@ function FinalResultPanel({
   return (
     <div className="finalResultPanel">
       <button className="infoBtn" onClick={activateInfoPanel}>
-        info
+        Info
       </button>
 
       <button className="buttonReset" onClick={reset}>
         Reset
       </button>
 
-      <p className="totalResult">{percent} %</p>
+      <p className="totalResult"> {percent} %</p>
 
       <button className="buttonCalculate" onClick={calculate}>
-        Calculate
+        Berechnen
       </button>
 
       <p className="totalResult">
-        {paletsResult} palets <br /> {cratesResult} crates
+        {paletsResult} Paletten <br /> {cratesResult} Kisten
       </p>
 
       <label className="lastProduct">
-        Last Product
+        Aktuelle Sorte
         <input
           type="number"
-          placeholder="coefficient"
+          placeholder="Koeffizient"
           value={lastProductCoefficient}
-          onChange={(e) => setLastProduct(e.target.value)}
+          onChange={(e) => {
+            const val = Number(e.target.value);
+            if (val >= 0 || e.target.value === "")
+              setLastProduct(e.target.value);
+          }}
         />
       </label>
     </div>

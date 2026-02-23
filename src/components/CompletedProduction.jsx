@@ -13,7 +13,10 @@ function CompletedProduction({
       if (lastState.length >= 9) {
         return lastState;
       }
-      return [...products, { label: "", crates: "", coefficient: "" }];
+      return [
+        ...products,
+        { label: "", palets: "", crates: "", coefficient: "" },
+      ];
     });
   };
 
@@ -30,8 +33,12 @@ function CompletedProduction({
   function calculateCP() {
     let result = 0;
     products.forEach((i) => {
-      if (!isNaN(i.crates) && !isNaN(i.coefficient)) {
-        result += i.crates * i.coefficient;
+      const palets = Number(i.palets);
+      const crates = Number(i.crates);
+      const coefficient = Number(i.coefficient);
+
+      if (!isNaN(palets) && !isNaN(crates) && !isNaN(coefficient)) {
+        result += (palets * 32 + crates) * coefficient;
       }
     });
 
@@ -55,8 +62,8 @@ function CompletedProduction({
   }, [resetTrigger]);
 
   return (
-    <div className="CalculationSection">
-      <h1>Completed Production</h1>
+    <div className="CompetedProduction">
+      <h1>Fertige Sorten</h1>
 
       <div className="divProduct">
         {products.map((input, index) => (
@@ -64,15 +71,33 @@ function CompletedProduction({
             <label>{index + 1}.</label>
             <input
               type="number"
-              placeholder="Total crates"
-              value={input.crates}
-              onChange={(e) => newValues(index, "crates", e.target.value)}
+              placeholder="Paletten"
+              value={input.palets}
+              onChange={(e) => {
+                const val = Number(e.target.value);
+                if (val >= 0 || e.target.value === "")
+                  newValues(index, "palets", e.target.value);
+              }}
             />
             <input
               type="number"
-              placeholder="Prod-coefficient"
+              placeholder="Kisten"
+              value={input.crates}
+              onChange={(e) => {
+                const val = Number(e.target.value);
+                if (val >= 0 || e.target.value === "")
+                  newValues(index, "crates", e.target.value);
+              }}
+            />
+            <input
+              type="number"
+              placeholder="Koeffizient"
               value={input.coefficient}
-              onChange={(e) => newValues(index, "coefficient", e.target.value)}
+              onChange={(e) => {
+                const val = Number(e.target.value);
+                if (val >= 0 || e.target.value === "")
+                  newValues(index, "coefficient", e.target.value);
+              }}
             />
           </div>
         ))}
@@ -87,7 +112,7 @@ function CompletedProduction({
         </button>
       </div>
 
-      <p>Total: {totalCP}</p>
+      <p className="resultSection">Gesamt: {totalCP}</p>
     </div>
   );
 }

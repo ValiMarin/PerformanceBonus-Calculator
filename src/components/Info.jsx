@@ -1,46 +1,51 @@
 function Info({ onClose }) {
   return (
-    <div className="infoPanel">
+    <div className="coverPanel">
       <div className="infoTextHolder">
-        <h1>Why to use & How to use</h1>
+        <h1>Anleitung</h1>
 
         <p className="infoText">
-          &nbsp;&nbsp;This calculator is designed for a packing factory and
-          calculates the quantity of product that needs to be completed in order
-          to earn a bonus (extra money). The factory has over 50 production
-          lines, and each line has an employee who manually calculates this
-          bonus. With this calculator, employees can easily determine the bonus
-          by entering the required inputs.
+          &nbsp;&nbsp;Dieser Rechner wurde auf Grundlage der Produktionsprozesse
+          bei der Westfälischen Fleischwarenfabrik Stockmeyer GmbH entwickelt
+          und dient zur Berechnung der Produktionsmenge, die erforderlich ist,
+          um einen Bonus (Zusatzvergütung) zu erreichen. Das Werk verfügt über
+          mehr als 30 Verpackungslinien im Drei-Schicht-System, wobei jeder
+          Linie ein verantwortlicher Mitarbeiter zugeordnet ist, der die
+          Bonusberechnung bislang manuell durchführt. Mit diesem Tool können
+          Mitarbeitende die erforderliche Produktionsmenge durch einfache
+          Eingabe der relevanten Daten schnell, einheitlich und nachvollziehbar
+          berechnen.
           <br />
-          <br /> &nbsp;&nbsp;<b>How to use!</b>
-          <br /> The employee has to complete 3 main sections:
+          <br /> &nbsp;&nbsp;<b>So wird es verwendet!</b>
+          <br /> Der Mitarbeiter muss 3 Hauptbereiche ausfüllen:
           <br />
           <br />
-          &nbsp;&nbsp; 1. <b>Time Calculator –</b> calculates the total working
-          time based on how many people are assigned to that line and subtracts
-          unexpected time loss.
+          &nbsp;&nbsp; 1. <b>Zeitrechner –</b> berechnet die gesamte Arbeitszeit
+          basierend darauf, wie viele Personen der jeweiligen Linie zugeordnet
+          sind, und zieht unvorhergesehene Zeitverluste ab.
           <br /> <br />
-          &nbsp;&nbsp; <b>2. Expected Time Loss –</b> calculates every expected
-          action that may occur (e.g., label roll change, plastic roll change,
-          etc.). Each action has a specific line coefficient that multiplies the
-          action time. All actions are then summed and multiplied by the number
-          of people. This result is multiplied again by 1.35, because to earn
-          the bonus, the line must produce at 135% capacity.
+          &nbsp;&nbsp; <b>2. Rüstenrechner –</b> berechnet jede erwartete
+          Aktion, die auftreten kann (z. B. Etikettenwechsel, Folienwechsel
+          usw.). Jede Aktion hat einen spezifischen Linien-Koeffizienten, der
+          die Aktionszeit multipliziert. Alle Aktionen werden anschließend
+          summiert und mit der Anzahl der Personen multipliziert. Das Ergebnis
+          wird nochmals mit 1,35 multipliziert, da die Linie für den Bonus mit
+          135 % Kapazität produzieren muss.
           <br /> <br />
-          &nbsp;&nbsp; 3. <b>Completed Production – </b>represents orders that
-          have already been completed by the employees. Each order includes the
-          number of crates produced and a specific coefficient for each product.
-          The calculation involves summing all products, where the number of
-          crates for each product is multiplied by its corresponding
-          coefficient.
+          &nbsp;&nbsp; 3. <b>Fertige Sorten – </b>zeigt die Aufträge, die
+          bereits von den Mitarbeitern erledigt wurden. Jeder Auftrag enthält
+          die Anzahl der produzierten Kisten sowie einen spezifischen
+          Koeffizienten für jedes Produkt. Die Berechnung erfolgt durch
+          Summierung aller Produkte, wobei die Anzahl der Kisten jedes Produkts
+          mit dem entsprechenden Koeffizienten multipliziert wird.
           <br /> <br />
-          &nbsp;&nbsp; After completing all three sections, the employee must
-          enter the current coefficient in the 'Last Product' field, then press
-          'Calculate' to determine the quantity that needs to be produced to
-          complete the bonus.
+          &nbsp;&nbsp; Nachdem alle drei Bereiche ausgefüllt sind, muss der
+          Mitarbeiter den aktuellen Koeffizienten im Feld Letzte Sorte eingeben
+          und dann auf Berechnen drücken, um die Menge zu ermitteln, die
+          hergestellt werden muss, um den Bonus zu erreichen.
         </p>
 
-        <button className="infoOkBtn" onClick={onClose}>
+        <button className="panelBtn" onClick={onClose}>
           OK
         </button>
       </div>

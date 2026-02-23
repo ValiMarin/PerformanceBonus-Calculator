@@ -6,8 +6,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Inter";
-  padding: 15px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  padding: 10px;
   gap: 20px;
 }
 
@@ -15,62 +15,83 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 20px;
   padding-left: 20px;
   padding-right: 20px;
 }
 
 .CalculationSection {
-  width: 30%;
+  width: 48%;
   min-width: 350px;
-  height: 70vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: #453b3d;
-  border: 10px solid black;
+  background-color: #684444b9;
+  border: clamp(2px, 0.5vw, 10px) solid black;
+  border-radius: 10px;
+}
+
+.CompetedProduction {
+  width: 95%;
+  min-width: 350px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #684444b9;
+  border: clamp(2px, 0.5vw, 10px) solid black;
+  border-radius: 10px;
+}
+
+.resultSection {
+  -webkit-text-stroke: 0.06em rgb(0, 0, 0);
 }
 
 .endAlign {
+  width: auto;
   height: 80%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-end;
-  padding: 10px;
 }
 
 .buttonCalculate {
-  width: 20vh;
+  width: 25vh;
   height: 8.5vh;
-  background-color: #257b50;
-  font-size: calc(10px + 2vmin);
+  background-color: #348b60;
+  font-size: clamp(14px, 1.5vw, 60px);
 }
 
 .buttonReset {
-  width: 6.5vh;
+  width: 4vw;
+  min-width: 50px;
   height: 4vh;
-  background-color: #8d882a;
-  font-size: calc(10px + 1vmin);
+  background-color: #b8b246;
+  font-size: clamp(12px, 1vw, 60px);
 }
 
 .finalResultPanel {
-  width: 85%;
-  height: 10%;
+  width: 95%;
+  height: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 3%;
-  background-color: #453b3d;
-  border: 10px solid black;
+  background-color: #684444b9;
+  border: clamp(2px, 0.5vw, 10px) solid black;
+  border-radius: 10px;
   padding: 10px;
   flex-wrap: wrap;
 }
@@ -78,23 +99,25 @@
 .totalResult {
   font-weight: 800;
   font-size: clamp(16px, 1.3vw, 60px);
+  border-radius: 10px;
   line-height: 1.6;
-  background-color: #2b2b2b;
+  background-color: #2b2b2bb4;
   padding: 10px;
+  -webkit-text-stroke: 0.05em rgb(0, 0, 0);
 }
 
 .productionBtns {
-  width: 3.2vh;
-  height: 3.2vh;
-  background-color: #8d882a;
-  font-size: calc(10px + 2vmin);
+  width: 5vh;
+  height: 5vh;
+  background-color: #b8b246;
 }
 
 .divProductionBtns {
-  width: 75%;
+  width: 50%;
   height: 50%;
   display: flex;
   gap: 2%;
+  margin-top: 1%;
 }
 
 .divProductRow {
@@ -102,7 +125,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 2.7vh;
+  gap: 2vw;
 }
 
 .divProduct {
@@ -110,7 +133,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 1.2vh;
+  gap: 1vh;
 }
 
 .lastProduct {
@@ -123,14 +146,13 @@
 }
 
 .infoBtn {
-  width: 7vh;
-  height: 7vh;
-  background-color: #264472;
-  font-size: calc(10px + 2vmin);
+  width: 9vh;
+  height: 9vh;
+  background-color: #36598d;
   margin-left: 4vh;
 }
 
-.infoPanel {
+.coverPanel {
   top: 0;
   left: 0;
   width: 100%;
@@ -149,40 +171,128 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: #253d40;
-  border: 10px solid black;
+  background-color: #456c71;
+  border: clamp(2px, 0.5vw, 10px) solid black;
   overflow: hidden;
   overflow-y: auto;
-  padding: 20px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  gap: 1vh;
 }
 
 .infoText {
   width: 90%;
   color: #fffdd8;
   font-weight: 500;
-  font-size: calc(8px + 1.3vmin);
+  font-size: clamp(12px, 1.3vw, 60px);
   line-height: 1.5;
   text-align: left;
 }
 
-.infoOkBtn {
+.panelBtn {
   width: 12vh;
   height: 6vh;
   background-color: #ad6e36;
-  font-size: calc(10px + 2vmin);
 }
 
-.mandatoryFieldsPanel {
-  width: 40%;
-  height: 40%;
+.actionPanel {
+  width: 50%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  background-color: #253d40;
-  gap: 8vh;
-  padding: 20px;
-  border: 10px solid black;
+  justify-content: space-between;
+  background-color: #456c71;
+  padding-bottom: 2vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  border: clamp(2px, 0.5vw, 10px) solid black;
   overflow: hidden;
   overflow-y: auto;
+  border-radius: 10px;
+}
+
+.eraseRowBtn {
+  width: 3vh;
+  height: 3vh;
+  background-color: rgb(157, 41, 41);
+  font-size: clamp(12px, 1vw, 60px);
+}
+
+.addRow {
+  width: 4vw;
+  height: 5vh;
+  background-color: #b8b246;
+}
+
+.rowDiv {
+  display: flex;
+  align-items: center;
+  font-size: clamp(12px, 1.05vw, 60px);
+  gap: 0.3vw;
+}
+
+.customLabel {
+  width: 12vw;
+  min-width: 140px;
+  height: 5vh;
+  border: clamp(2px, 0.2vw, 5px) solid rgba(33, 33, 33, 0);
+  padding: 0vw 0vh;
+  background-color: #9e744400;
+  color: #fffbb6;
+  text-align: right;
+  font-family: "Fira Code", monospace;
+}
+
+.actionPanelBtns {
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+}
+
+.choiceBtn {
+  background-color: #00000052;
+  border-radius: 10px;
+  border: clamp(2px, 0.2vw, 15px) solid rgba(0, 0, 0, 0.252);
+  color: #fffbb6;
+  font-family: "Fira Code", monospace;
+}
+
+.choiceCommonBtn {
+  width: 70%;
+  height: 10%;
+  font-size: clamp(4px, 1vw, 60px);
+}
+
+.choicePersonalizedBtn {
+  width: 90%;
+  height: 60%;
+  font-size: clamp(8px, 2vw, 60px);
+}
+
+.choicesPanel {
+  width: 95%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: rgba(107, 51, 153, 0.189);
+  border-radius: 10px;
+  border: clamp(2px, 0.2vw, 15px) solid rgba(0, 0, 0, 0.405);
+  gap: 3%;
+}
+
+.choiceColumn {
+  width: 30vw;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  gap: 1vh;
 }

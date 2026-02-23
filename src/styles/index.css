@@ -1,12 +1,12 @@
 body {
-  background-color: rgb(35, 56, 72);
+  background-color: rgb(218, 218, 218);
   margin: 0;
 }
 
 header {
   font-weight: 900;
-  font-size: clamp(16px, 5vw, 80px);
-  color: rgb(171, 121, 26);
+  font-size: clamp(24px, 4vw, 80px);
+  color: rgb(68, 160, 230);
   -webkit-text-stroke: 0.05em rgb(0, 0, 0);
 }
 
@@ -14,48 +14,65 @@ p {
   font-weight: 800;
   font-size: clamp(16px, 2vw, 60px);
   color: rgb(157, 41, 41);
-  -webkit-text-stroke: 0.05em rgb(0, 0, 0);
 }
 
 h1 {
   font-weight: 900;
-  font-size: clamp(16px, 2.2vw, 60px);
-  color: rgb(26, 108, 171);
+  font-size: clamp(16px, 2.3vw, 60px);
+  color: rgb(162, 207, 255);
   -webkit-text-stroke: 0.06em rgb(0, 0, 0);
   text-align: center;
 }
 
 label {
-  font-weight: 700;
-  font-size: clamp(16px, 1.3vw, 60px);
-  color: #fffbb6;
-  display: flex;
-  align-items: center;
-  gap: 0.8vh;
+  font-weight: 600;
+  font-size: clamp(10px, 2vw, 60px);
+  color: #ffde85;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 input {
-  width: 10vh;
-  height: 2vh;
-  background-color: #63411b;
+  width: 10vw;
+  min-width: 80px;
+  height: 4vh;
+  border: clamp(2px, 0.2vw, 5px) solid rgb(33, 33, 33);
+  border-radius: 6px;
+  padding: 0.8vw 1.5vh;
+  outline: none;
+  background-color: #9e7444;
   font-weight: 700;
-  -webkit-text-stroke: 0em rgb(0, 0, 0);
+  font-size: clamp(12px, 1.05vw, 60px);
 }
 
 input::placeholder {
-  color: rgba(255, 255, 255, 0.548);
-  font-size: inherit;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: clamp(6px, 0.8vw, 60px);
   font-weight: 600;
-  padding: 5px;
+}
+
+input:focus {
+  border: clamp(2px, 0.15vw, 5px) solid rgb(0, 123, 255);
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
 }
 
 select {
-  width: 10.7vh;
-  height: 2.3vh;
-  background-color: #63411b;
-  font-weight: 600;
+  width: 10vw;
+  min-width: 80px;
+  height: 5vh;
+  background-color: #9e7444;
   color: #232323;
+  font-size: clamp(12px, 1.1vw, 60px);
+  border: clamp(2px, 0.2vw, 5px) solid rgb(33, 33, 33);
   -webkit-text-stroke: 0.07em rgba(0, 0, 0, 0);
+  background-color: #9e7444;
+  font-weight: 700;
+  padding: 0.2vw 0.5vh;
+}
+
+select:focus {
+  border: 1px solid rgb(0, 123, 255);
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
 }
 
 button {
@@ -63,7 +80,16 @@ button {
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  border: clamp(3px, 0.2vw, 15px) solid rgb(0, 0, 0);
+  border-radius: 5px;
+  border: clamp(2px, 0.2vw, 15px) solid rgb(0, 0, 0);
   padding: 8px;
   cursor: pointer;
+  font-size: clamp(12px, 1.3vw, 60px);
+}
+
+@font-face {
+  font-family: "Fira Code";
+  src: url("../fonts/FiraCode/static/FiraCode-Bold.ttf") format("woff2");
+  font-weight: 700;
+  font-style: normal;
 }
