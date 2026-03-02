@@ -5,7 +5,7 @@ body {
 
 header {
   font-weight: 900;
-  font-size: clamp(24px, 4vw, 80px);
+  font-size: clamp(24px, 3vw, 80px);
   color: rgb(68, 160, 230);
   -webkit-text-stroke: 0.05em rgb(0, 0, 0);
 }
@@ -14,6 +14,8 @@ p {
   font-weight: 800;
   font-size: clamp(16px, 2vw, 60px);
   color: rgb(157, 41, 41);
+  margin: 0.5rem;
+  text-align: center;
 }
 
 h1 {
@@ -22,14 +24,19 @@ h1 {
   color: rgb(162, 207, 255);
   -webkit-text-stroke: 0.06em rgb(0, 0, 0);
   text-align: center;
+  margin: 0.5rem;
 }
 
 label {
-  font-weight: 600;
-  font-size: clamp(10px, 2vw, 60px);
-  color: #ffde85;
+  font-weight: 700;
+  font-size: clamp(12px, 1.05vw, 60px);
+  color: #ffd45e;
   text-align: center;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.3vw;
+  font-family: "Fira Code", monospace;
+  user-select: none;
 }
 
 input {
@@ -38,7 +45,7 @@ input {
   height: 4vh;
   border: clamp(2px, 0.2vw, 5px) solid rgb(33, 33, 33);
   border-radius: 6px;
-  padding: 0.8vw 1.5vh;
+  padding: 0.8vw 1vh;
   outline: none;
   background-color: #9e7444;
   font-weight: 700;
@@ -57,12 +64,12 @@ input:focus {
 }
 
 select {
-  width: 10vw;
-  min-width: 80px;
+  width: 12vw;
+  min-width: 100px;
   height: 5vh;
   background-color: #9e7444;
   color: #232323;
-  font-size: clamp(12px, 1.1vw, 60px);
+  font-size: clamp(10px, 1vw, 60px);
   border: clamp(2px, 0.2vw, 5px) solid rgb(33, 33, 33);
   -webkit-text-stroke: 0.07em rgba(0, 0, 0, 0);
   background-color: #9e7444;
@@ -71,7 +78,7 @@ select {
 }
 
 select:focus {
-  border: 1px solid rgb(0, 123, 255);
+  border: clamp(2px, 0.15vw, 5px) solid rgb(0, 123, 255);
   box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
 }
 
@@ -84,7 +91,7 @@ button {
   border: clamp(2px, 0.2vw, 15px) solid rgb(0, 0, 0);
   padding: 8px;
   cursor: pointer;
-  font-size: clamp(12px, 1.3vw, 60px);
+  font-size: clamp(8px, 1.3vw, 60px);
 }
 
 @font-face {

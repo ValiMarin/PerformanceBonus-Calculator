@@ -11,18 +11,23 @@ function App() {
   const [calculateTrigger, setCalculateTrigger] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(false);
 
-  const [von, setVon] = useState("");
-  const [bis, setBis] = useState("");
+  const [von, setVon] = useState([""]);
+  const [bis, setBis] = useState([""]);
   const [people, setPeople] = useState("");
   const [lastProductCoefficient, setLastProduct] = useState("");
 
-  const [totalTime, setTotalTime] = useState(0);
+  const [totalTime, setTotalTime] = useState("...");
   const [totalETL, setTotalETL] = useState("...");
   const [totalCP, setTotalCP] = useState("...");
 
   function calculate() {
-    if (!von || !bis || !lastProductCoefficient || !people) {
-      activateMandatoryFieldsPanel();
+    if (
+      von.some((time) => !time) ||
+      bis.some((time) => !time) ||
+      !lastProductCoefficient ||
+      !people
+    ) {
+      panelVisibility(1, true);
       return;
     }
 
@@ -39,8 +44,8 @@ function App() {
     else setResetTrigger(true);
 
     setPeople("");
-    setVon("");
-    setBis("");
+    setVon([""]);
+    setBis([""]);
 
     setTimeout(() => {
       setResetTrigger(false);
@@ -52,30 +57,31 @@ function App() {
     setLastProduct("");
   }
 
-  const [infoPanel, setInfoPanelVisibility] = useState(false);
+  const [panels, setPanelsVisibility] = useState([false, false]);
 
-  const activateInfoPanel = () => {
-    setInfoPanelVisibility(true);
+  const panelVisibility = (index, value) => {
+    const update = [...panels];
+    update[index] = value;
+    setPanelsVisibility(update);
   };
 
-  const deactivateInfoPanel = () => {
-    setInfoPanelVisibility(false);
-  };
-
-  const [mandatoryFields, setMandatoryFields] = useState(false);
-
-  const activateMandatoryFieldsPanel = () => {
-    setMandatoryFields(true);
-  };
-
-  const deactivateMandatoryFieldsPanel = () => {
-    setMandatoryFields(false);
-  };
   return (
     <div className="App">
       <header> Prämienrechner </header>
 
       <div className="CalculationPanel">
+        <FinalResultPanel
+          resetTrigger={resetTrigger}
+          activateInfoPanel={() => panelVisibility(0, true)}
+          reset={reset}
+          calculate={calculate}
+          totalTime={totalTime}
+          totalETL={totalETL}
+          totalCP={totalCP}
+          lastProductCoefficient={lastProductCoefficient}
+          setLastProduct={setLastProduct}
+        />
+
         <TimeCalculator
           calculateTrigger={calculateTrigger}
           resetTrigger={resetTrigger}
@@ -104,22 +110,10 @@ function App() {
         setTotalCP={setTotalCP}
       />
 
-      <FinalResultPanel
-        resetTrigger={resetTrigger}
-        activateInfoPanel={activateInfoPanel}
-        reset={reset}
-        calculate={calculate}
-        totalTime={totalTime}
-        totalETL={totalETL}
-        totalCP={totalCP}
-        lastProductCoefficient={lastProductCoefficient}
-        setLastProduct={setLastProduct}
-      />
+      {panels[0] && <Info onClose={() => panelVisibility(0, false)} />}
 
-      {infoPanel && <Info onClose={deactivateInfoPanel} />}
-
-      {mandatoryFields && (
-        <MandatoryFields onClose={deactivateMandatoryFieldsPanel} />
+      {panels[1] && (
+        <MandatoryFields onClose={() => panelVisibility(1, false)} />
       )}
     </div>
   );

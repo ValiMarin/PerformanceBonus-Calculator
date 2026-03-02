@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import DeleteRowPanel from "./DeleteRowPanel.jsx";
+import AddRowPanel from "./AddRowPanel.jsx";
 
 function ExpectedTimeLoss({
   calculateTrigger,
@@ -32,14 +34,22 @@ function ExpectedTimeLoss({
     setETLValues(update);
   };
 
-  const addDots = (index, name, value) => {
-    const update = [...expectedTimeLossValues];
+  const adjustName = (index, input, value) => {
+    value = capitalizeIfLower(value);
+    if (!value.trim().endsWith(":")) value += ":";
 
-    if (!value.trim().endsWith(":")) {
-      update[index][name] = value + ":";
-      setETLValues(update);
-    }
+    updateETLValues(index, input, value);
   };
+
+  function capitalizeIfLower(name) {
+    if (!name) return name;
+
+    const firstChar = name[0];
+    if (firstChar >= "a" && firstChar <= "z")
+      return firstChar.toUpperCase() + name.slice(1);
+
+    return name;
+  }
 
   function calculateETL() {
     let totalETL = 0;
@@ -144,7 +154,7 @@ function ExpectedTimeLoss({
               maxLength={18}
               value={row.name}
               onChange={(e) => updateETLValues(index, "name", e.target.value)}
-              onBlur={(e) => addDots(index, "name", e.target.value)}
+              onBlur={(e) => adjustName(index, "name", e.target.value)}
             />
 
             <input
@@ -183,68 +193,17 @@ function ExpectedTimeLoss({
       <p className="resultSection">Gesamt: {totalETL}</p>
 
       {deletePanel && (
-        <div className="coverPanel">
-          <div className="actionPanel">
-            <h1>Sind Sie sicher, dass Sie diese Zeile löschen möchten?</h1>
-
-            <p className="resultSection">Name: {rowSelected.selectedLabel}</p>
-
-            <div className="actionPanelBtns">
-              <button
-                className="panelBtn"
-                onClick={() => deactivateDeletePanel(true)}
-              >
-                Ja
-              </button>
-              <button
-                className="panelBtn"
-                onClick={() => deactivateDeletePanel(false)}
-              >
-                Nein
-              </button>
-            </div>
-          </div>
-        </div>
+        <DeleteRowPanel
+          onClose={(value) => deactivateDeletePanel(value)}
+          rowSelected={rowSelected}
+        />
       )}
 
       {addRowPanel && (
-        <div className="coverPanel">
-          <div className="infoTextHolder">
-            <h1>Wählen Sie aus, was Sie hinzufügen möchten</h1>
-
-            <div className="choicesPanel">
-              <div className="choiceColumn">
-                <label>Benutzerdefiniertes Element</label>
-                <button
-                  className="choiceBtn choicePersonalizedBtn"
-                  onClick={() => deactivateAddPanel("Sonstiges:")}
-                >
-                  Sonstiges
-                </button>
-
-                <button
-                  className="choiceBtn choicePersonalizedBtn"
-                  onClick={() => deactivateAddPanel(":")}
-                >
-                  Unvollständig
-                </button>
-              </div>
-
-              <div className="choiceColumn">
-                <label>Häufigste Elemente</label>
-                {missingLabels.map((label) => (
-                  <button
-                    key={label}
-                    className="choiceBtn choiceCommonBtn"
-                    onClick={() => deactivateAddPanel(label)}
-                  >
-                    {label.slice(0, -1)}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <AddRowPanel
+          onClose={(value) => deactivateAddPanel(value)}
+          missingLabels={missingLabels}
+        />
       )}
     </div>
   );

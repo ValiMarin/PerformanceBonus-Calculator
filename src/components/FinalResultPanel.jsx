@@ -43,7 +43,7 @@ function FinalResultPanel({
   }
 
   useEffect(() => {
-    if (!totalTime || !lastProductCoefficient) return;
+    if (!totalTime || totalTime === "..." || !lastProductCoefficient) return;
     calculateFinalResult();
   }, [totalTime, totalETL, totalCP, lastProductCoefficient]);
 
