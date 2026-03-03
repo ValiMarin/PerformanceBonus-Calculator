@@ -98,6 +98,7 @@
   border-top: clamp(2px, 0.3vw, 10px) solid black;
   flex-wrap: wrap;
   padding: 0.5vh;
+  z-index: 100;
 }
 
 .totalResult {
@@ -167,6 +168,7 @@
   align-items: center;
   justify-content: center;
   background-color: #2d2d2da2;
+  z-index: 1000;
 }
 
 .infoTextHolder {
@@ -369,4 +371,14 @@
   background-color: rgba(0, 0, 0, 0.249);
   border-radius: 10px;
   padding: 1vh;
+}
+
+.rowPeopleSelect {
+  width: 3vw;
+  min-width: 30px;
+  height: 4vh;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  z-index: 10;
 }

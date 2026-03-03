@@ -14,6 +14,7 @@ function App() {
   const [von, setVon] = useState([""]);
   const [bis, setBis] = useState([""]);
   const [people, setPeople] = useState("");
+  const [sameTimeAllPeople, setSameTimeAllPeople] = useState(true);
   const [lastProductCoefficient, setLastProduct] = useState("");
 
   const [totalTime, setTotalTime] = useState("...");
@@ -51,7 +52,7 @@ function App() {
       setResetTrigger(false);
     }, 100);
 
-    setTotalTime(0);
+    setTotalTime("...");
     setTotalETL("...");
     setTotalCP("...");
     setLastProduct("");
@@ -93,6 +94,8 @@ function App() {
           setPeople={setPeople}
           totalTime={totalTime}
           setTotalTime={setTotalTime}
+          sameTimeAllPeople={sameTimeAllPeople}
+          setSameTimeAllPeople={setSameTimeAllPeople}
         />
 
         <ExpectedTimeLoss
@@ -101,6 +104,8 @@ function App() {
           totalETL={totalETL}
           setTotalETL={setTotalETL}
           people={people}
+          sameTimeAllPeople={sameTimeAllPeople}
+          setSameTimeAllPeople={setSameTimeAllPeople}
         />
       </div>
       <CompletedProduction

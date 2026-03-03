@@ -16,6 +16,8 @@ function TimeCalculator({
   setPeople,
   totalTime,
   setTotalTime,
+  sameTimeAllPeople,
+  setSameTimeAllPeople,
 }) {
   const commonElements = [
     "Reparatur:",
@@ -31,10 +33,28 @@ function TimeCalculator({
   ];
 
   const [timeCalculatorValues, setTimeCalculatorValues] = useState([
-    { time: "", amount: 1, name: "Reparatur:", type: "Gesamte Min" },
-    { time: 15, amount: false, name: "Aufrüsten?", type: "checkbox" },
-    { time: 15, amount: false, name: "Abrüsten?", type: "checkbox" },
-    { time: 15, amount: "", name: "Artikelwechsel:", type: "nr" },
+    {
+      time: "",
+      amount: 1,
+      name: "Reparatur:",
+      type: "Gesamte Min",
+      people: "",
+    },
+    {
+      time: 15,
+      amount: false,
+      name: "Aufrüsten?",
+      type: "checkbox",
+      people: "",
+    },
+    {
+      time: 15,
+      amount: false,
+      name: "Abrüsten?",
+      type: "checkbox",
+      people: "",
+    },
+    { time: 15, amount: "", name: "Artikelwechsel:", type: "nr", people: "" },
   ]);
 
   const updateValues = (index, input, value) => {
@@ -42,8 +62,6 @@ function TimeCalculator({
     update[index][input] = value;
     setTimeCalculatorValues(update);
   };
-
-  const [sameTimeAllPeople, setSameTimeAllPeople] = useState(true);
 
   const deactivatePeoplePanel = (value) => {
     setSameTimeAllPeople(value);
@@ -80,26 +98,20 @@ function TimeCalculator({
   }
 
   function calculateTime() {
-    const justifiedTime = timeCalculatorValues.reduce((total, row) => {
-      return (total += row.time * row.amount);
+    const justifiedTime = timeCalculatorValues.reduce(
+      (total, row) =>
+        total + row.time * row.amount * (sameTimeAllPeople ? 1 : row.people),
+      0,
+    );
+
+    const fullDayMin = 1440;
+    const totalMinutes = von.reduce((result, start, i) => {
+      let diff = timeStringToMinutes(bis[i]) - timeStringToMinutes(start);
+      if (diff < 0) diff += fullDayMin;
+      return result + diff;
     }, 0);
 
-    let totalMinutes = 0;
-    const fullDayMin = 1440;
-
-    for (let i = 0; i < von.length; ++i) {
-      const startMinutes = timeStringToMinutes(von[i]);
-      const endMinutes = timeStringToMinutes(bis[i]);
-
-      let diff = endMinutes - startMinutes;
-
-      if (diff < 0) diff += fullDayMin;
-
-      totalMinutes += diff;
-    }
-
-    let multiplier = 1;
-    if (sameTimeAllPeople === true) multiplier = people;
+    const multiplier = sameTimeAllPeople ? people : 1;
 
     const resultTime = multiplier * (totalMinutes - justifiedTime);
 
@@ -155,6 +167,14 @@ function TimeCalculator({
     if (sameTimeAllPeople === false) differentTime();
   }, [people]);
 
+  useEffect(() => {
+    if (sameTimeAllPeople === false) {
+      for (let i = 0; i < timeCalculatorValues.length; ++i) {
+        updateValues(i, "people", people);
+      }
+    }
+  }, [sameTimeAllPeople]);
+
   //deleting rows
   const [deletePanel, setDeletePanelVisibility] = useState(false);
   const [rowSelected, setRowSelected] = useState({
@@ -206,7 +226,13 @@ function TimeCalculator({
     setTimeCalculatorValues(() => {
       return [
         ...timeCalculatorValues,
-        { time: time, amount: amount, name: newRowName, type: type },
+        {
+          time: time,
+          amount: amount,
+          name: newRowName,
+          type: type,
+          people: people,
+        },
       ];
     });
   }
@@ -316,11 +342,47 @@ function TimeCalculator({
                       if (val >= 0 || e.target.value === "") {
                         const field =
                           row.type === "Gesamte Min" ? "time" : "amount";
-                        updateValues(index, field, e.target.value);
+                        const validInput = e.target.value.slice(0, 3);
+                        updateValues(index, field, validInput);
                       }
                     },
                   })}
             />
+
+            {(sameTimeAllPeople === false ||
+              sameTimeAllPeople === "questionYes") && (
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <select
+                  value={row.people}
+                  onChange={(e) =>
+                    updateValues(index, "people", e.target.value)
+                  }
+                  className="rowPeopleSelect"
+                >
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                  <option value={6}>6</option>
+                  <option value={7}>7</option>
+                  <option value={8}>8</option>
+                </select>
+
+                <span
+                  style={{
+                    position: "absolute",
+                    right: "0.2vw",
+                    top: "45%",
+                    transform: "translateY(-50%)",
+                    pointerEvents: "none",
+                  }}
+                >
+                  👥
+                </span>
+              </div>
+            )}
+
             <button
               className="eraseRowBtn"
               onClick={() => activateDeletePanel(index, row.name)}

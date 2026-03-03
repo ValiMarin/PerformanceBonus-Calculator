@@ -75,8 +75,10 @@ function CompletedProduction({
               value={input.palets}
               onChange={(e) => {
                 const val = Number(e.target.value);
-                if (val >= 0 || e.target.value === "")
-                  newValues(index, "palets", e.target.value);
+                if (val >= 0 || e.target.value === "") {
+                  const validInput = e.target.value.slice(0, 2);
+                  newValues(index, "palets", validInput);
+                }
               }}
             />
             <input
@@ -85,8 +87,10 @@ function CompletedProduction({
               value={input.crates}
               onChange={(e) => {
                 const val = Number(e.target.value);
-                if (val >= 0 || e.target.value === "")
-                  newValues(index, "crates", e.target.value);
+                if (val >= 0 || e.target.value === "") {
+                  const validInput = e.target.value.slice(0, 4);
+                  newValues(index, "crates", validInput);
+                }
               }}
             />
             <input

@@ -42,7 +42,7 @@ function WorkSchedule({ von, bis, setVon, setBis, sameTimeAllPeople }) {
   return (
     <div
       style={{
-        marginBottom: "3vh",
+        marginBottom: "2vh",
         display: "flex",
         flexDirection: "column",
         gap: "0.5vh",

@@ -8,6 +8,7 @@ function ExpectedTimeLoss({
   totalETL,
   setTotalETL,
   people,
+  sameTimeAllPeople,
 }) {
   const expectedTimeLossLabels = [
     "Messerwechsel:",
@@ -25,6 +26,7 @@ function ExpectedTimeLoss({
       name: label,
       amount: "",
       coefficient: "",
+      people: "",
     })),
   );
 
@@ -52,14 +54,19 @@ function ExpectedTimeLoss({
   }
 
   function calculateETL() {
-    let totalETL = 0;
-    expectedTimeLossValues.forEach((i) => {
-      if (!isNaN(i.amount) && !isNaN(i.coefficient)) {
-        totalETL += i.amount * i.coefficient;
-      }
-    });
-    totalETL *= people;
-    totalETL += (totalETL * 35) / 100;
+    let totalETL = expectedTimeLossValues.reduce((result, i) => {
+      if (!isNaN(i.amount) && !isNaN(i.coefficient))
+        return (
+          result +
+          i.amount *
+            i.coefficient *
+            (sameTimeAllPeople === true ? people : i.people)
+        );
+
+      return result;
+    }, 0);
+
+    totalETL *= 1.35;
 
     setTotalETL(Math.floor(totalETL));
   }
@@ -84,6 +91,14 @@ function ExpectedTimeLoss({
       reset();
     }
   }, [resetTrigger]);
+
+  useEffect(() => {
+    if (sameTimeAllPeople === false) {
+      for (let i = 0; i < expectedTimeLossValues.length; ++i) {
+        updateETLValues(i, "people", people);
+      }
+    }
+  }, [sameTimeAllPeople]);
 
   //deleting rows
   const [deletePanel, setDeletePanelVisibility] = useState(false);
@@ -136,7 +151,7 @@ function ExpectedTimeLoss({
     setETLValues(() => {
       return [
         ...expectedTimeLossValues,
-        { name: newRow, amount: "", coefficient: "" },
+        { name: newRow, amount: "", coefficient: "", people: people },
       ];
     });
   }
@@ -160,11 +175,14 @@ function ExpectedTimeLoss({
             <input
               type="number"
               placeholder="nr"
+              maxLength={2}
               value={row.amount}
               onChange={(e) => {
                 const val = Number(e.target.value);
-                if (val >= 0 || e.target.value === "")
-                  updateETLValues(index, "amount", e.target.value);
+                if (val >= 0 || e.target.value === "") {
+                  const validInput = e.target.value.slice(0, 2);
+                  updateETLValues(index, "amount", validInput);
+                }
               }}
             />
             <input
@@ -177,6 +195,41 @@ function ExpectedTimeLoss({
                   updateETLValues(index, "coefficient", e.target.value);
               }}
             />
+
+            {(sameTimeAllPeople === false ||
+              sameTimeAllPeople === "questionYes") && (
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <select
+                  value={row.people}
+                  onChange={(e) =>
+                    updateETLValues(index, "people", e.target.value)
+                  }
+                  className="rowPeopleSelect"
+                >
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                  <option value={6}>6</option>
+                  <option value={7}>7</option>
+                  <option value={8}>8</option>
+                </select>
+
+                <span
+                  style={{
+                    position: "absolute",
+                    right: "0.2vw",
+                    top: "45%",
+                    transform: "translateY(-50%)",
+                    pointerEvents: "none",
+                  }}
+                >
+                  👥
+                </span>
+              </div>
+            )}
+
             <button
               className="eraseRowBtn"
               onClick={() => activateDeletePanel(index, row.name)}
