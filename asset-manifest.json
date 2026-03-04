@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/PerformanceBonus-Calculator/static/css/main.c3be4daf.css",
-    "main.js": "/PerformanceBonus-Calculator/static/js/main.8f7065bb.js",
+    "main.css": "/PerformanceBonus-Calculator/static/css/main.f3bc0557.css",
+    "main.js": "/PerformanceBonus-Calculator/static/js/main.adcf2ecf.js",
     "static/media/FiraCode-Bold.ttf": "/PerformanceBonus-Calculator/static/media/FiraCode-Bold.5e5c521dddeb44fad8a9.ttf",
     "index.html": "/PerformanceBonus-Calculator/index.html",
-    "main.c3be4daf.css.map": "/PerformanceBonus-Calculator/static/css/main.c3be4daf.css.map",
-    "main.8f7065bb.js.map": "/PerformanceBonus-Calculator/static/js/main.8f7065bb.js.map"
+    "main.f3bc0557.css.map": "/PerformanceBonus-Calculator/static/css/main.f3bc0557.css.map",
+    "main.adcf2ecf.js.map": "/PerformanceBonus-Calculator/static/js/main.adcf2ecf.js.map"
   },
   "entrypoints": [
-    "static/css/main.c3be4daf.css",
-    "static/js/main.8f7065bb.js"
+    "static/css/main.f3bc0557.css",
+    "static/js/main.adcf2ecf.js"
   ]
 }
