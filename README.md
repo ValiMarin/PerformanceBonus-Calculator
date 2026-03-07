@@ -1,8 +1,6 @@
 # Performance Bonus Calculator
 
-A React application designed for a **packing factory** to calculate the exact quantity of product that must be completed in order for an employee to earn a **performance bonus**.  
-The factory has over **50 production lines**, and until now, each line operator manually calculated the bonus — a process that was slow and prone to errors.  
-This tool simplifies the entire workflow and ensures fast, accurate results.
+This calculator was developed based on the production processes at Westfälischen Fleischwarenfabrik Stockmeyer GmbH and is used to calculate the production quantity required to reach the Prämie bonus. The factory has many Verpackum packing lines, where each line has a responsible employee who previously calculated the bonus manually. With this tool, employees can quickly, consistently and transparently calculate the required production quantity by simply entering the relevant data.
 
 ---
 
@@ -77,10 +75,6 @@ The calculator then determines the **exact quantity of product that must still b
 - **JavaScript (ES6)**
 - **HTML5 / CSS3**
 - **GitHub Pages** (deployment)
-
----
-
-## 🧑‍💻 Run the Project Locally
 
 1. **Clone the repository**
    ```bash
