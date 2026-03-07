@@ -2,9 +2,9 @@ import { useState } from "react";
 import "../styles/App.css";
 import Info from "./Info.jsx";
 import MandatoryFields from "./MandatoryFields.jsx";
-import TimeCalculator from "./TimeCalculator.jsx";
-import ExpectedTimeLoss from "./ExpectedTimeLoss.jsx";
-import CompletedProduction from "./CompletedProduction.jsx";
+import TimeCalculator from "./TimeCalculator/TimeCalculator.jsx";
+import ExpectedTimeLoss from "./ExpectedTimeLoss/ExpectedTimeLoss.jsx";
+import CompletedProduction from "./CompletedProduction/CompletedProduction.jsx";
 import FinalResultPanel from "./FinalResultPanel.jsx";
 
 function App() {
@@ -20,6 +20,8 @@ function App() {
   const [totalTime, setTotalTime] = useState("...");
   const [totalETL, setTotalETL] = useState("...");
   const [totalCP, setTotalCP] = useState("...");
+
+  const [language, setLanguage] = useState(0);
 
   function calculate() {
     if (
@@ -96,6 +98,8 @@ function App() {
           setTotalTime={setTotalTime}
           sameTimeAllPeople={sameTimeAllPeople}
           setSameTimeAllPeople={setSameTimeAllPeople}
+          language={language}
+          setLanguage={setLanguage}
         />
 
         <ExpectedTimeLoss
@@ -106,6 +110,8 @@ function App() {
           people={people}
           sameTimeAllPeople={sameTimeAllPeople}
           setSameTimeAllPeople={setSameTimeAllPeople}
+          language={language}
+          setLanguage={setLanguage}
         />
       </div>
       <CompletedProduction
@@ -115,10 +121,20 @@ function App() {
         setTotalCP={setTotalCP}
       />
 
-      {panels[0] && <Info onClose={() => panelVisibility(0, false)} />}
+      {panels[0] && (
+        <Info
+          onClose={() => panelVisibility(0, false)}
+          language={language}
+          setLanguage={setLanguage}
+        />
+      )}
 
       {panels[1] && (
-        <MandatoryFields onClose={() => panelVisibility(1, false)} />
+        <MandatoryFields
+          onClose={() => panelVisibility(1, false)}
+          language={language}
+          setLanguage={setLanguage}
+        />
       )}
     </div>
   );

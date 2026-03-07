@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import CP_Row from "./CP_Row";
 
 function CompletedProduction({
   calculateTrigger,
@@ -67,43 +68,13 @@ function CompletedProduction({
 
       <div className="divProduct">
         {products.map((input, index) => (
-          <div className="divProductRow" key={index}>
-            <label>{index + 1}.</label>
-            <input
-              type="number"
-              placeholder="Paletten"
-              value={input.palets}
-              onChange={(e) => {
-                const val = Number(e.target.value);
-                if (val >= 0 || e.target.value === "") {
-                  const validInput = e.target.value.slice(0, 2);
-                  newValues(index, "palets", validInput);
-                }
-              }}
-            />
-            <input
-              type="number"
-              placeholder="Kisten"
-              value={input.crates}
-              onChange={(e) => {
-                const val = Number(e.target.value);
-                if (val >= 0 || e.target.value === "") {
-                  const validInput = e.target.value.slice(0, 4);
-                  newValues(index, "crates", validInput);
-                }
-              }}
-            />
-            <input
-              type="number"
-              placeholder="Koeffizient"
-              value={input.coefficient}
-              onChange={(e) => {
-                const val = Number(e.target.value);
-                if (val >= 0 || e.target.value === "")
-                  newValues(index, "coefficient", e.target.value);
-              }}
-            />
-          </div>
+          <CP_Row
+            index={index}
+            palets={input.palets}
+            crates={input.crates}
+            coefficient={input.coefficient}
+            newValues={newValues}
+          />
         ))}
       </div>
 

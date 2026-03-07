@@ -1,7 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import LanguagesPanel from "../LanguagesPanel";
 
-function CostumizedRow({ onClose, newRowName }) {
-  const [title, setTitle] = useState("Bitte Elementtyp auswählen!");
+function CostumizedRow({ onClose, newRowName, language, setLanguage }) {
+  const titlesFirst = [
+    "Bitte Elementtyp auswählen!",
+    "Vă rugăm să selectați tipul elementului!",
+    "Please select the element type!",
+    "Пожалуйста, выберите тип элемента!",
+  ];
+
+  const titlesSecond = [
+    "Wie viele Minuten möchten Sie diesem Element zuweisen?",
+    "Câte minute doriti sa acordati acestui element?",
+    "How many minutes do you want to assign to this element?",
+    "Сколько минут вы хотите выделить этому элементу?",
+  ];
+
+  const doneBtn = ["Fertig", "Terminat", "Done", "Готово"];
+
+  const [title, setTitle] = useState(titlesFirst[language]);
   const [type, setType] = useState();
   const [panel, setPanelVisibility] = useState("first");
   const [time, setTime] = useState("");
@@ -9,7 +26,7 @@ function CostumizedRow({ onClose, newRowName }) {
   const chooseType = (type) => {
     setType(type);
     setPanelVisibility("second");
-    setTitle("Wie viele Minuten werden bei aktivem Element berücksichtigt?");
+    setTitle(titlesSecond[language]);
 
     if (type === "Gesamte Min") onClose("", 1, type);
   };
@@ -22,6 +39,15 @@ function CostumizedRow({ onClose, newRowName }) {
 
     onClose(time, "", type);
   };
+
+  useEffect(() => {
+    if (panel === "first") {
+      setTitle(titlesFirst[language]);
+      return;
+    }
+
+    setTitle(titlesSecond[language]);
+  }, [language]);
 
   return (
     <div className="coverPanel">
@@ -92,11 +118,13 @@ function CostumizedRow({ onClose, newRowName }) {
               disabled={time === "" || Number(time) === 0}
               onClick={() => chooseTime(time)}
             >
-              Ende
+              {doneBtn[language]}
             </button>
           </div>
         )}
       </div>
+
+      <LanguagesPanel setLanguage={setLanguage} />
     </div>
   );
 }

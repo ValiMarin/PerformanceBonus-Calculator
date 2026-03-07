@@ -60,7 +60,7 @@
 
 .endAlign {
   width: auto;
-  height: 80%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -109,6 +109,7 @@
   background-color: rgba(0, 0, 0, 0.4);
   padding: 10px;
   -webkit-text-stroke: 0.05em rgb(0, 0, 0);
+  text-align: left;
 }
 
 .productionBtns {
@@ -179,9 +180,8 @@
   align-items: center;
   justify-content: flex-start;
   background-color: #456c71;
-  border: clamp(2px, 0.5vw, 10px) solid black;
+  border: clamp(2px, 0.3vw, 10px) solid black;
   overflow: hidden;
-  overflow-y: auto;
   padding-bottom: 10px;
   border-radius: 10px;
   gap: 1vh;
@@ -192,17 +192,22 @@
   color: #fffdd8;
   font-weight: 500;
   font-size: clamp(12px, 1.3vw, 60px);
+  overflow-y: auto;
   line-height: 1.5;
   text-align: left;
+  background-color: rgba(0, 0, 0, 0.351);
+  border-radius: 10px;
+  padding: 3vh;
 }
 
 .panelBtn {
-  width: 12vh;
+  width: 15vh;
   height: 6vh;
   background-color: #ad6e36;
 }
 
 .actionPanel {
+  position: relative;
   width: 50%;
   height: 50%;
   display: flex;
@@ -210,10 +215,10 @@
   align-items: center;
   justify-content: space-between;
   background-color: #456c71;
-  padding-bottom: 2vh;
+  padding-bottom: 3vh;
   padding-left: 3vw;
   padding-right: 3vw;
-  border: clamp(2px, 0.5vw, 10px) solid black;
+  border: clamp(2px, 0.3vw, 10px) solid black;
   overflow: hidden;
   overflow-y: auto;
   border-radius: 10px;
@@ -292,6 +297,7 @@
   border-radius: 10px;
   border: clamp(2px, 0.2vw, 15px) solid rgba(0, 0, 0, 0.405);
   gap: 3%;
+  overflow-y: auto;
 }
 
 .choiceColumn {
@@ -321,7 +327,7 @@
 }
 
 .elementType {
-  width: 90%;
+  width: 100%;
   height: 33%;
   display: flex;
   align-items: center;
@@ -381,4 +387,27 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   z-index: 10;
+}
+
+.leanguageDiv {
+  width: 6vw;
+  top: 26%;
+  left: 18%;
+  height: auto;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4vh;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.504);
+  padding: 1vh 2vh;
+}
+
+.flagBtn {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  width: 3vw;
+  height: 3vw;
 }

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import DeleteRowPanel from "./DeleteRowPanel.jsx";
-import AddRowPanel from "./AddRowPanel.jsx";
+import DeleteRowPanel from "../DeleteRowPanel.jsx";
+import AddRowPanel from "../AddRowPanel.jsx";
 import CostumizedRow from "./CustomizedRow.jsx";
 import PeoplePanel from "./PeoplePanel.jsx";
 import WorkSchedule from "./WorkSchedule.jsx";
+import TC_Row from "./TC_Row.jsx";
 
 function TimeCalculator({
   calculateTrigger,
@@ -18,6 +19,8 @@ function TimeCalculator({
   setTotalTime,
   sameTimeAllPeople,
   setSameTimeAllPeople,
+  language,
+  setLanguage,
 }) {
   const commonElements = [
     "Reparatur:",
@@ -308,88 +311,19 @@ function TimeCalculator({
         />
 
         {timeCalculatorValues.map((row, index) => (
-          <div className="rowDiv" key={index}>
-            <input
-              className="customLabel"
-              type="text"
-              maxLength={18}
-              value={row.name}
-              onChange={(e) => updateValues(index, "name", e.target.value)}
-              onBlur={(e) => adjustName(index, "name", e.target.value)}
-            />
-
-            {row.type !== "Gesamte Min" && (
-              <label>
-                {row.time}-Min
-                {row.type === "nr" ? " ×" : ":"}
-              </label>
-            )}
-
-            <input
-              type={row.type === "checkbox" ? "checkbox" : "number"}
-              className={row.type === "checkbox" ? "checkbox" : ""}
-              placeholder={row.type}
-              {...(row.type === "checkbox"
-                ? {
-                    checked: row.amount,
-                    onChange: (e) =>
-                      updateValues(index, "amount", e.target.checked),
-                  }
-                : {
-                    value: row.type === "Gesamte Min" ? row.time : row.amount,
-                    onChange: (e) => {
-                      const val = Number(e.target.value);
-                      if (val >= 0 || e.target.value === "") {
-                        const field =
-                          row.type === "Gesamte Min" ? "time" : "amount";
-                        const validInput = e.target.value.slice(0, 3);
-                        updateValues(index, field, validInput);
-                      }
-                    },
-                  })}
-            />
-
-            {(sameTimeAllPeople === false ||
-              sameTimeAllPeople === "questionYes") && (
-              <div style={{ position: "relative", display: "inline-block" }}>
-                <select
-                  value={row.people}
-                  onChange={(e) =>
-                    updateValues(index, "people", e.target.value)
-                  }
-                  className="rowPeopleSelect"
-                >
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                  <option value={6}>6</option>
-                  <option value={7}>7</option>
-                  <option value={8}>8</option>
-                </select>
-
-                <span
-                  style={{
-                    position: "absolute",
-                    right: "0.2vw",
-                    top: "45%",
-                    transform: "translateY(-50%)",
-                    pointerEvents: "none",
-                  }}
-                >
-                  👥
-                </span>
-              </div>
-            )}
-
-            <button
-              className="eraseRowBtn"
-              onClick={() => activateDeletePanel(index, row.name)}
-            >
-              X
-            </button>
-          </div>
+          <TC_Row
+            key={index}
+            index={index}
+            name={row.name}
+            type={row.type}
+            time={row.time}
+            amount={row.amount}
+            people={row.people}
+            updateValues={updateValues}
+            adjustName={adjustName}
+            activateDeletePanel={activateDeletePanel}
+            sameTimeAllPeople={sameTimeAllPeople}
+          />
         ))}
 
         <button className="addRow" onClick={activateAddPanel}>
@@ -403,6 +337,8 @@ function TimeCalculator({
         <DeleteRowPanel
           onClose={(value) => deactivateDeletePanel(value)}
           rowSelected={rowSelected}
+          language={language}
+          setLanguage={setLanguage}
         />
       )}
 
@@ -410,6 +346,8 @@ function TimeCalculator({
         <AddRowPanel
           onClose={(value) => deactivateAddPanel(value)}
           missingLabels={missingLabels}
+          language={language}
+          setLanguage={setLanguage}
         />
       )}
 
@@ -419,6 +357,8 @@ function TimeCalculator({
             deactivateCostumizedPanel(time, amount, type)
           }
           newRowName={newRowName}
+          language={language}
+          setLanguage={setLanguage}
         />
       )}
 
@@ -427,6 +367,8 @@ function TimeCalculator({
         <PeoplePanel
           onClose={(value) => deactivatePeoplePanel(value)}
           sameTimeAllPeople={sameTimeAllPeople}
+          language={language}
+          setLanguage={setLanguage}
         />
       )}
     </div>

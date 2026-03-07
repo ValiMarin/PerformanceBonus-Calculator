@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import DeleteRowPanel from "./DeleteRowPanel.jsx";
-import AddRowPanel from "./AddRowPanel.jsx";
+import DeleteRowPanel from "../DeleteRowPanel.jsx";
+import AddRowPanel from "../AddRowPanel.jsx";
+import ETL_Row from "./ETL_Row.jsx";
 
 function ExpectedTimeLoss({
   calculateTrigger,
@@ -9,6 +10,8 @@ function ExpectedTimeLoss({
   setTotalETL,
   people,
   sameTimeAllPeople,
+  language,
+  setLanguage,
 }) {
   const expectedTimeLossLabels = [
     "Messerwechsel:",
@@ -162,81 +165,18 @@ function ExpectedTimeLoss({
 
       <div className="endAlign">
         {expectedTimeLossValues.map((row, index) => (
-          <div className="rowDiv" key={index}>
-            <input
-              className="customLabel"
-              type="text"
-              maxLength={18}
-              value={row.name}
-              onChange={(e) => updateETLValues(index, "name", e.target.value)}
-              onBlur={(e) => adjustName(index, "name", e.target.value)}
-            />
-
-            <input
-              type="number"
-              placeholder="nr"
-              maxLength={2}
-              value={row.amount}
-              onChange={(e) => {
-                const val = Number(e.target.value);
-                if (val >= 0 || e.target.value === "") {
-                  const validInput = e.target.value.slice(0, 2);
-                  updateETLValues(index, "amount", validInput);
-                }
-              }}
-            />
-            <input
-              type="number"
-              placeholder="Koeffizient"
-              value={row.coefficient}
-              onChange={(e) => {
-                const val = Number(e.target.value);
-                if (val >= 0 || e.target.value === "")
-                  updateETLValues(index, "coefficient", e.target.value);
-              }}
-            />
-
-            {(sameTimeAllPeople === false ||
-              sameTimeAllPeople === "questionYes") && (
-              <div style={{ position: "relative", display: "inline-block" }}>
-                <select
-                  value={row.people}
-                  onChange={(e) =>
-                    updateETLValues(index, "people", e.target.value)
-                  }
-                  className="rowPeopleSelect"
-                >
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                  <option value={6}>6</option>
-                  <option value={7}>7</option>
-                  <option value={8}>8</option>
-                </select>
-
-                <span
-                  style={{
-                    position: "absolute",
-                    right: "0.2vw",
-                    top: "45%",
-                    transform: "translateY(-50%)",
-                    pointerEvents: "none",
-                  }}
-                >
-                  👥
-                </span>
-              </div>
-            )}
-
-            <button
-              className="eraseRowBtn"
-              onClick={() => activateDeletePanel(index, row.name)}
-            >
-              X
-            </button>
-          </div>
+          <ETL_Row
+            key={index}
+            index={index}
+            name={row.name}
+            amount={row.amount}
+            coefficient={row.coefficient}
+            people={row.people}
+            updateETLValues={updateETLValues}
+            adjustName={adjustName}
+            sameTimeAllPeople={sameTimeAllPeople}
+            activateDeletePanel={activateDeletePanel}
+          />
         ))}
         <button className="addRow" onClick={activateAddPanel}>
           +
@@ -249,6 +189,8 @@ function ExpectedTimeLoss({
         <DeleteRowPanel
           onClose={(value) => deactivateDeletePanel(value)}
           rowSelected={rowSelected}
+          language={language}
+          setLanguage={setLanguage}
         />
       )}
 
@@ -256,6 +198,8 @@ function ExpectedTimeLoss({
         <AddRowPanel
           onClose={(value) => deactivateAddPanel(value)}
           missingLabels={missingLabels}
+          language={language}
+          setLanguage={setLanguage}
         />
       )}
     </div>
