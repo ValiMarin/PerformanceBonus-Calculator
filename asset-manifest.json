@@ -1,14 +1,18 @@
 {
   "files": {
-    "main.css": "/PerformanceBonus-Calculator/static/css/main.1c0e04e7.css",
-    "main.js": "/PerformanceBonus-Calculator/static/js/main.48ab1d5e.js",
+    "main.css": "/PerformanceBonus-Calculator/static/css/main.af71c983.css",
+    "main.js": "/PerformanceBonus-Calculator/static/js/main.0d42faf6.js",
     "static/media/FiraCode-Bold.ttf": "/PerformanceBonus-Calculator/static/media/FiraCode-Bold.5e5c521dddeb44fad8a9.ttf",
+    "static/media/gb.svg": "/PerformanceBonus-Calculator/static/media/gb.84d4bb24d2a1a5891e0d89c4c3cdda82.svg",
     "index.html": "/PerformanceBonus-Calculator/index.html",
-    "main.1c0e04e7.css.map": "/PerformanceBonus-Calculator/static/css/main.1c0e04e7.css.map",
-    "main.48ab1d5e.js.map": "/PerformanceBonus-Calculator/static/js/main.48ab1d5e.js.map"
+    "static/media/ro.svg": "/PerformanceBonus-Calculator/static/media/ro.33482fcd4344b097d6d7108dc38ed79f.svg",
+    "static/media/ru.svg": "/PerformanceBonus-Calculator/static/media/ru.097b629d57d4188b9b831cca54f5875e.svg",
+    "static/media/de.svg": "/PerformanceBonus-Calculator/static/media/de.adc6c9b3594fb2f4a4df9a9cea56a1ab.svg",
+    "main.af71c983.css.map": "/PerformanceBonus-Calculator/static/css/main.af71c983.css.map",
+    "main.0d42faf6.js.map": "/PerformanceBonus-Calculator/static/js/main.0d42faf6.js.map"
   },
   "entrypoints": [
-    "static/css/main.1c0e04e7.css",
-    "static/js/main.48ab1d5e.js"
+    "static/css/main.af71c983.css",
+    "static/js/main.0d42faf6.js"
   ]
 }
