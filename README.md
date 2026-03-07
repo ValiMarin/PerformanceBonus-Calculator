@@ -1,6 +1,6 @@
 # Performance Bonus Calculator
 
-This calculator was developed based on the production processes at Westfälischen Fleischwarenfabrik Stockmeyer GmbH and is used to calculate the production quantity required to reach the Prämie bonus. The factory has many Verpackum packing lines, where each line has a responsible employee who previously calculated the bonus manually. With this tool, employees can quickly, consistently and transparently calculate the required production quantity by simply entering the relevant data.
+   This calculator was developed based on the production processes at Westfälischen Fleischwarenfabrik Stockmeyer GmbH and is used to calculate the production quantity required to reach the Prämie bonus. The factory has many Verpackum packing lines, where each line has a responsible employee who previously calculated the bonus manually. With this tool, employees can quickly, consistently and transparently calculate the required production quantity by simply entering the relevant data.
 
 ---
 
