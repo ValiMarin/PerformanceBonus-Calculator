@@ -69,6 +69,7 @@ function CompletedProduction({
       <div className="divProduct">
         {products.map((input, index) => (
           <CP_Row
+            key={index}
             index={index}
             palets={input.palets}
             crates={input.crates}

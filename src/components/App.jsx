@@ -1,11 +1,9 @@
 import { useState } from "react";
 import "../styles/App.css";
-import Info from "./Info.jsx";
-import MandatoryFields from "./MandatoryFields.jsx";
 import TimeCalculator from "./TimeCalculator/TimeCalculator.jsx";
 import ExpectedTimeLoss from "./ExpectedTimeLoss/ExpectedTimeLoss.jsx";
 import CompletedProduction from "./CompletedProduction/CompletedProduction.jsx";
-import FinalResultPanel from "./FinalResultPanel.jsx";
+import FinalResultPanel from "./MainActionPanel/FinalResultPanel.jsx";
 
 function App() {
   const [calculateTrigger, setCalculateTrigger] = useState(false);
@@ -23,6 +21,8 @@ function App() {
 
   const [language, setLanguage] = useState(0);
 
+  const [mandatoryPanel, setMandatoryPanelVisibility] = useState(false);
+
   function calculate() {
     if (
       von.some((time) => !time) ||
@@ -30,7 +30,7 @@ function App() {
       !lastProductCoefficient ||
       !people
     ) {
-      panelVisibility(1, true);
+      setMandatoryPanelVisibility(true);
       return;
     }
 
@@ -60,31 +60,26 @@ function App() {
     setLastProduct("");
   }
 
-  const [panels, setPanelsVisibility] = useState([false, false]);
-
-  const panelVisibility = (index, value) => {
-    const update = [...panels];
-    update[index] = value;
-    setPanelsVisibility(update);
-  };
-
   return (
     <div className="App">
       <header> Prämienrechner </header>
 
-      <div className="CalculationPanel">
-        <FinalResultPanel
-          resetTrigger={resetTrigger}
-          activateInfoPanel={() => panelVisibility(0, true)}
-          reset={reset}
-          calculate={calculate}
-          totalTime={totalTime}
-          totalETL={totalETL}
-          totalCP={totalCP}
-          lastProductCoefficient={lastProductCoefficient}
-          setLastProduct={setLastProduct}
-        />
+      <FinalResultPanel
+        resetTrigger={resetTrigger}
+        reset={reset}
+        calculate={calculate}
+        totalTime={totalTime}
+        totalETL={totalETL}
+        totalCP={totalCP}
+        lastProductCoefficient={lastProductCoefficient}
+        setLastProduct={setLastProduct}
+        mandatoryPanel={mandatoryPanel}
+        setMandatoryPanelVisibility={setMandatoryPanelVisibility}
+        language={language}
+        setLanguage={setLanguage}
+      />
 
+      <div className="CalculationPanel">
         <TimeCalculator
           calculateTrigger={calculateTrigger}
           resetTrigger={resetTrigger}
@@ -114,28 +109,13 @@ function App() {
           setLanguage={setLanguage}
         />
       </div>
+
       <CompletedProduction
         calculateTrigger={calculateTrigger}
         resetTrigger={resetTrigger}
         totalCP={totalCP}
         setTotalCP={setTotalCP}
       />
-
-      {panels[0] && (
-        <Info
-          onClose={() => panelVisibility(0, false)}
-          language={language}
-          setLanguage={setLanguage}
-        />
-      )}
-
-      {panels[1] && (
-        <MandatoryFields
-          onClose={() => panelVisibility(1, false)}
-          language={language}
-          setLanguage={setLanguage}
-        />
-      )}
     </div>
   );
 }

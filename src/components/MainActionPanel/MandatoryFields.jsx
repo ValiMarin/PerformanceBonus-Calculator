@@ -1,4 +1,4 @@
-import LanguagesPanel from "./LanguagesPanel";
+import LanguagesPanel from "../LanguagesPanel";
 
 function MandatoryFields({ onClose, language, setLanguage }) {
   const titles = [
