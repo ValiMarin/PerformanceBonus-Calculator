@@ -75,7 +75,3 @@ The calculator then determines the **exact quantity of product that must still b
 - **JavaScript (ES6)**
 - **HTML5 / CSS3**
 - **GitHub Pages** (deployment)
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/ValiMarin/PerformanceBonus-Calculator.git
